@@ -5,729 +5,274 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paiz Shop — Official Store</title>
 <link rel="icon" type="image/svg+xml" href="/paizcorp/assets/logos/ps-logo-v3.svg">
-<meta name="description" content="Buy Minecraft items with Diamonds. Official store of The Legend of Legiona.">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="Buy Minecraft items with Diamonds. Official retail arm of Paiz® Corp — The Legend of Legiona.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/paizcorp/paizshop/assets/style.css">
 <style>
-/* ═══════════════════════════════════════════════════
-   PAIZ SHOP — IMPROVED UI/UX
-   Dark · Red accent · Gold · Minecraft retail
-═══════════════════════════════════════════════════ */
-:root {
-  --bg:         #141414;
-  --bg2:        #1a1a1a;
-  --bg3:        #202020;
-  --bg4:        #282828;
-  --surface:    #313131;
-  --border:     rgba(255,255,255,0.09);
-  --border2:    rgba(255,255,255,0.05);
-  --accent:     #DC2626;
-  --accent-dk:  #b91c1c;
-  --accent-lt:  #ef4444;
-  --accent-dim: rgba(220,38,38,0.10);
-  --accent-glow:rgba(220,38,38,0.18);
-  --gold:       #fbbf24;
-  --gold-dk:    #d97706;
-  --gold-dim:   rgba(251,191,36,0.10);
-  --red:        #f87171;
-  --red-dim:    rgba(248,113,113,0.10);
-  --green:      #4ade80;
-  --green-dim:  rgba(74,222,128,0.10);
-  --txt:        #f2f2f2;
-  --txt2:       rgba(242,242,242,0.78);
-  --txt3:       rgba(242,242,242,0.50);
-  --txt4:       rgba(242,242,242,0.26);
-  --net-bg:     #0d0d0d;
-}
-
-/* ── BASE ────────────────────────────────────────── */
-*  { margin:0; padding:0; box-sizing:border-box }
-html { scroll-behavior:smooth }
-body { font-family:'Outfit',sans-serif; background:var(--bg); color:var(--txt); line-height:1.7; overflow-x:hidden }
-body::before {
-  content:''; position:fixed; inset:0; pointer-events:none; z-index:9998;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.022'/%3E%3C/svg%3E");
-}
-
-/* ── NETWORK BAR ─────────────────────────────────── */
-.network-bar {
-  position:sticky; top:0; z-index:500;
-  background:var(--net-bg);
-  border-bottom:1px solid rgba(255,255,255,0.06);
-  height:30px; display:flex; align-items:center; padding:0 4%; gap:14px; overflow:hidden;
-}
-.nb-label {
-  font-family:'IBM Plex Mono',monospace; font-size:0.42rem;
-  letter-spacing:3px; color:var(--txt4); white-space:nowrap; flex-shrink:0;
-}
-.nb-sep { width:1px; height:12px; background:rgba(255,255,255,0.08); flex-shrink:0 }
-.nb-links { display:flex; gap:0; overflow-x:auto; scrollbar-width:none; flex:1 }
-.nb-links::-webkit-scrollbar { display:none }
-.nb-links a {
-  font-family:'IBM Plex Mono',monospace; font-size:0.42rem;
-  letter-spacing:1.8px; color:var(--txt4); text-decoration:none;
-  padding:0 10px; white-space:nowrap; transition:color 0.15s, background 0.15s;
-  border-right:1px solid rgba(255,255,255,0.05); line-height:30px;
-}
-.nb-links a:first-child { border-left:1px solid rgba(255,255,255,0.05) }
-.nb-links a:hover { color:var(--txt3); background:rgba(255,255,255,0.02) }
-.nb-links a.nb-current { color:var(--accent); background:rgba(220,38,38,0.07) }
-.nb-right { margin-left:auto; display:flex; align-items:center; gap:6px; flex-shrink:0 }
-.nb-status {
-  display:flex; align-items:center; gap:5px;
-  font-family:'IBM Plex Mono',monospace; font-size:0.40rem;
-  letter-spacing:1.5px; color:rgba(74,222,128,0.65); white-space:nowrap;
-}
-.nb-dot {
-  width:5px; height:5px; border-radius:50%;
-  background:var(--green); box-shadow:0 0 6px rgba(74,222,128,0.6);
-  animation:nbPulse 2.2s ease-in-out infinite;
-}
-@keyframes nbPulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
-
-/* ── NAV ─────────────────────────────────────────── */
-nav {
-  position:sticky; top:30px; z-index:400; height:56px;
-  display:flex; align-items:center; padding:0 4%;
-  background:rgba(14,14,14,0.97); backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border); gap:14px;
-}
-.nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0 }
-.nav-logo-img { width:28px; height:28px; object-fit:contain }
-.nav-logo-sq {
-  width:28px; height:28px; background:var(--accent);
-  display:flex; align-items:center; justify-content:center;
-  font-family:'IBM Plex Mono',monospace; font-size:0.55rem; font-weight:500;
-  color:#fff; letter-spacing:0.5px; flex-shrink:0;
-}
-.nav-wordmark { font-family:'Syne',sans-serif; font-size:0.97rem; font-weight:800; color:var(--txt); letter-spacing:-0.3px }
-.nav-parent { font-family:'IBM Plex Mono',monospace; font-size:0.40rem; letter-spacing:1.5px; color:var(--txt4); margin-top:1px }
-.nav-sep { width:1px; height:18px; background:var(--border); flex-shrink:0 }
-.nav-links { display:flex; gap:2px }
-.nav-links a {
-  padding:5px 11px; font-family:'IBM Plex Mono',monospace;
-  font-size:0.51rem; letter-spacing:1px; color:var(--txt3);
-  text-decoration:none; transition:color 0.2s;
-  border-radius:2px;
-}
-.nav-links a:hover { color:var(--accent) }
-.nav-right { margin-left:auto; display:flex; align-items:center; gap:8px }
-.nav-back {
-  padding:5px 12px; font-family:'IBM Plex Mono',monospace; font-size:0.47rem;
-  letter-spacing:1.5px; color:var(--txt4); text-decoration:none;
-  border:1px solid var(--border2); transition:all 0.2s;
-}
-.nav-back:hover { color:var(--txt2); border-color:var(--border) }
-.cart-btn {
-  display:flex; align-items:center; gap:8px; padding:7px 16px;
-  background:var(--accent); color:#fff; border:none; cursor:pointer;
-  font-family:'IBM Plex Mono',monospace; font-size:0.52rem; font-weight:500;
-  letter-spacing:1.5px; transition:background 0.2s; position:relative;
-}
-.cart-btn:hover { background:var(--accent-dk) }
-.cart-badge {
-  background:rgba(0,0,0,0.4); color:#fff; width:18px; height:18px;
-  border-radius:50%; display:flex; align-items:center; justify-content:center;
-  font-size:0.50rem; font-weight:700; transition:transform 0.25s;
-}
-.cart-badge.bump { animation:badgeBump 0.3s ease }
-@keyframes badgeBump { 0%{transform:scale(1)} 40%{transform:scale(1.5)} 100%{transform:scale(1)} }
-
-/* ── HERO ─────────────────────────────────────────── */
-.hero {
-  padding:3.2rem 4% 2.8rem; border-bottom:1px solid var(--border);
-  display:flex; justify-content:space-between; align-items:flex-end;
-  gap:30px; flex-wrap:wrap; position:relative; overflow:hidden;
-}
-.hero::before {
-  content:''; position:absolute; top:-40%; right:0; width:600px; height:600px;
-  background:radial-gradient(circle at 70% 30%,rgba(220,38,38,0.06) 0%,transparent 60%);
-  pointer-events:none;
-}
-.hero::after {
-  content:''; position:absolute; bottom:-20%; left:10%; width:400px; height:400px;
-  background:radial-gradient(circle,rgba(251,191,36,0.03) 0%,transparent 60%);
-  pointer-events:none;
-}
-.hero-tag {
-  font-family:'IBM Plex Mono',monospace; font-size:0.50rem; letter-spacing:3px;
-  color:var(--accent); opacity:0.8; margin-bottom:0.9rem;
-  display:flex; align-items:center; gap:10px;
-}
-.hero-tag::before { content:''; width:20px; height:1px; background:var(--accent); opacity:0.5 }
-.hero h1 {
-  font-family:'Syne',sans-serif; font-size:clamp(2.3rem,4vw,3.8rem);
-  font-weight:800; letter-spacing:-1.5px; line-height:1; color:var(--txt); margin-bottom:0.6rem;
-}
-.hero h1 span { color:var(--accent) }
-.hero-sub { font-size:0.95rem; color:var(--txt3); font-weight:300; max-width:400px; line-height:1.8 }
-.hero-corp-pill {
-  display:inline-flex; align-items:center; gap:8px;
-  margin-top:1rem; padding:5px 14px;
-  border:1px solid var(--border); background:var(--bg3);
-  text-decoration:none; transition:all 0.2s;
-}
-.hero-corp-pill:hover { border-color:rgba(255,255,255,0.18) }
-.hero-corp-pill span { font-family:'IBM Plex Mono',monospace; font-size:0.44rem; letter-spacing:2px; color:var(--txt4) }
-.hero-corp-pill strong { font-family:'IBM Plex Mono',monospace; font-size:0.44rem; letter-spacing:2px; color:var(--txt3); font-weight:500 }
-.hero-stats { display:flex; gap:2px; flex-shrink:0 }
-.hero-stat {
-  background:var(--bg3); border:1px solid var(--border);
-  padding:1.2rem 1.6rem; text-align:center; min-width:110px;
+/* ── HERO ──────────────────────────────────────────── */
+.hero{
+  padding:5rem 5% 4rem; border-bottom:1px solid var(--line);
+  display:flex; justify-content:space-between; align-items:flex-end; gap:40px; flex-wrap:wrap;
   position:relative; overflow:hidden;
 }
-.hero-stat::before {
-  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
-  background:linear-gradient(90deg, var(--accent), transparent);
-  opacity:0.4;
+.hero::before{
+  content:''; position:absolute; top:-45%; right:-5%; width:640px; height:640px;
+  background:radial-gradient(circle at 60% 40%, rgba(220,38,38,0.08) 0%, transparent 62%); pointer-events:none;
 }
-.hs-val {
-  font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:800;
-  color:var(--accent); display:block; line-height:1; margin-bottom:4px;
+.hero::after{
+  content:''; position:absolute; bottom:-30%; left:4%; width:400px; height:400px;
+  background:radial-gradient(circle, rgba(232,184,75,0.05) 0%, transparent 60%); pointer-events:none;
 }
-.hs-key { font-family:'IBM Plex Mono',monospace; font-size:0.42rem; letter-spacing:2px; color:var(--txt4); display:block }
+.hero-left{ max-width:560px; position:relative }
+.hero h1{
+  font-family:'Fraunces',serif; font-weight:600; font-size:clamp(2.6rem,5.2vw,4.6rem);
+  letter-spacing:-1.5px; line-height:1.02; margin:1rem 0 1.1rem;
+}
+.hero h1 em{ font-style:italic; color:var(--accent) }
+.hero-sub{ font-size:1.02rem; color:var(--txt3); max-width:420px; line-height:1.8; margin-bottom:1.5rem }
+.hero-corp-pill{
+  display:inline-flex; align-items:center; gap:9px; padding:8px 16px;
+  border:1px solid var(--line); text-decoration:none; transition:all .2s; font-size:0.8rem; color:var(--txt3);
+}
+.hero-corp-pill:hover{ border-color:var(--txt3); color:var(--txt) }
+.hero-corp-pill strong{ color:var(--txt2); font-weight:600 }
+.hero-stats{ display:flex; gap:0; flex-shrink:0; border:1px solid var(--line) }
+.hero-stat{ padding:1.5rem 2.1rem; text-align:center; min-width:120px; border-left:1px solid var(--line) }
+.hero-stat:first-child{ border-left:none }
+.hs-val{ font-family:'Fraunces',serif; font-size:2.1rem; font-weight:600; color:var(--accent); display:block; line-height:1; margin-bottom:6px }
+.hs-key{ font-size:0.66rem; letter-spacing:1.6px; text-transform:uppercase; color:var(--txt4) }
 
-/* ── TICKER ──────────────────────────────────────── */
-.ticker { background:var(--accent); padding:0.6rem 0; overflow:hidden }
-.ticker-track { display:flex; animation:ticker 30s linear infinite; white-space:nowrap }
-.ticker-item {
-  display:inline-flex; align-items:center; gap:18px; padding:0 26px;
-  font-family:'IBM Plex Mono',monospace; font-size:0.50rem; letter-spacing:2px;
-  color:rgba(255,255,255,0.82); flex-shrink:0;
-}
-.tdot { width:3px; height:3px; border-radius:50%; background:rgba(255,255,255,0.35) }
-@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+/* ── SHOP LAYOUT ───────────────────────────────────── */
+.shop-wrap{ max-width:1360px; margin:0 auto; padding:3.5rem 5%; display:grid; grid-template-columns:230px 1fr; gap:48px; align-items:start }
 
-/* ── SHOP LAYOUT ─────────────────────────────────── */
-.shop-wrap {
-  max-width:1340px; margin:0 auto; padding:2.5rem 4%;
-  display:grid; grid-template-columns:210px 1fr; gap:28px; align-items:start;
+/* ── SIDEBAR ───────────────────────────────────────── */
+.sidebar{ position:sticky; top:96px; display:flex; flex-direction:column; gap:2.2rem }
+.sb-label{ font-size:0.68rem; letter-spacing:1.8px; text-transform:uppercase; color:var(--txt4); margin-bottom:0.9rem }
+.search-wrap{ position:relative }
+.search-inp{
+  width:100%; padding:10px 34px 10px 2px; background:transparent; border:none; border-bottom:1px solid var(--line);
+  color:var(--txt); font-family:'Inter',sans-serif; font-size:0.95rem; outline:none; transition:border-color .2s;
 }
+.search-inp::placeholder{ color:var(--txt4) }
+.search-inp:focus{ border-color:var(--accent) }
+.search-ico{ position:absolute; right:4px; top:50%; transform:translateY(-50%); color:var(--txt4); font-size:0.85rem; pointer-events:none }
+.search-clear{ position:absolute; right:2px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:var(--txt3); font-size:0.8rem; display:none; padding:2px }
+.search-clear.show{ display:block }
+.search-ico.hide{ display:none }
 
-/* ── SIDEBAR ─────────────────────────────────────── */
-.sidebar { position:sticky; top:calc(30px + 56px + 18px); display:flex; flex-direction:column; gap:6px }
-.sb-box { background:var(--bg2); border:1px solid var(--border); padding:1.2rem 1.3rem }
-.sb-label {
-  font-family:'IBM Plex Mono',monospace; font-size:0.46rem; letter-spacing:2.5px;
-  color:var(--txt4); margin-bottom:0.8rem; display:flex; align-items:center; gap:8px;
+.filter-list{ display:flex; flex-direction:column; gap:0 }
+.f-btn{
+  width:100%; padding:9px 2px; background:transparent; border:none; border-bottom:1px solid var(--line2);
+  cursor:pointer; font-family:'Inter',sans-serif; font-size:0.88rem; color:var(--txt3); text-align:left;
+  transition:all .18s; display:flex; align-items:center; justify-content:space-between;
 }
-.sb-label::after { content:''; flex:1; height:1px; background:var(--border2) }
+.f-btn:hover{ color:var(--accent) }
+.f-btn.active{ color:var(--txt) }
+.f-count{ font-size:0.7rem; color:var(--txt4) }
 
-/* Search */
-.search-wrap { position:relative }
-.search-inp {
-  width:100%; padding:8px 32px 8px 12px; background:var(--bg3);
-  border:1px solid var(--border); color:var(--txt); font-family:'Outfit',sans-serif;
-  font-size:0.88rem; outline:none; transition:border-color 0.2s;
-}
-.search-inp::placeholder { color:var(--txt4) }
-.search-inp:focus { border-color:var(--accent) }
-.search-ico { position:absolute; right:10px; top:50%; transform:translateY(-50%); color:var(--txt4); font-size:0.78rem; pointer-events:none }
-.search-clear {
-  position:absolute; right:10px; top:50%; transform:translateY(-50%);
-  background:none; border:none; cursor:pointer; color:var(--txt3); font-size:0.78rem;
-  display:none; transition:color 0.15s; line-height:1; padding:2px;
-}
-.search-clear:hover { color:var(--accent) }
-.search-clear.show { display:block }
-.search-ico.hide { display:none }
+.sb-links{ display:flex; flex-direction:column; gap:9px }
+.sb-links a{ font-size:0.86rem; color:var(--txt3); text-decoration:none; transition:all .18s }
+.sb-links a:hover{ color:var(--accent); padding-left:4px }
 
-/* Filters */
-.filter-list { display:flex; flex-direction:column; gap:2px }
-.f-btn {
-  width:100%; padding:6px 10px; background:transparent;
-  border:1px solid var(--border2); cursor:pointer;
-  font-family:'IBM Plex Mono',monospace; font-size:0.49rem; letter-spacing:1.5px;
-  color:var(--txt3); text-align:left; transition:all 0.18s;
-  display:flex; align-items:center; justify-content:space-between;
+.filter-badge{
+  display:inline-flex; align-items:center; gap:6px; font-size:0.76rem; color:var(--accent);
+  padding:4px 10px; background:var(--accent-dim); border:1px solid var(--accent-line); margin:0 6px 6px 0;
 }
-.f-btn:hover { border-color:rgba(220,38,38,0.35); color:var(--accent) }
-.f-btn.active { background:var(--accent-dim); border-color:rgba(220,38,38,0.3); color:var(--accent) }
-.f-count { font-size:0.40rem; opacity:0.55 }
+.filter-badge button{ background:none; border:none; cursor:pointer; color:var(--accent); font-size:0.75rem; padding:0 0 0 4px }
 
-/* Sidebar quick links */
-.sb-links { display:flex; flex-direction:column; gap:2px }
-.sb-links a {
-  padding:6px 10px; font-family:'IBM Plex Mono',monospace; font-size:0.49rem;
-  letter-spacing:1px; color:var(--txt3); text-decoration:none;
-  border:1px solid var(--border2); transition:all 0.18s;
-}
-.sb-links a:hover { color:var(--accent); border-color:rgba(220,38,38,0.2); padding-left:14px }
+/* ── TOOLBAR ───────────────────────────────────────── */
+.toolbar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:1.8rem; padding-bottom:1.1rem; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:12px }
+.tb-count{ font-size:0.82rem; color:var(--txt4) }
+.tb-sorts{ display:flex; gap:4px }
+.s-btn{ padding:6px 13px; background:transparent; border:1px solid var(--line); cursor:pointer; font-size:0.78rem; color:var(--txt3); transition:all .18s }
+.s-btn:hover{ border-color:var(--txt3); color:var(--txt2) }
+.s-btn.active{ background:var(--txt); color:var(--bg); border-color:var(--txt) }
 
-/* Active filter indicator */
-.filter-badge {
-  display:inline-flex; align-items:center; gap:5px;
-  font-family:'IBM Plex Mono',monospace; font-size:0.40rem; letter-spacing:1.5px;
-  color:var(--accent); padding:2px 8px; background:var(--accent-dim);
-  border:1px solid rgba(220,38,38,0.25); margin-bottom:6px;
-}
-.filter-badge button { background:none; border:none; cursor:pointer; color:var(--accent); font-size:0.65rem; line-height:1; padding:0 0 0 4px }
+/* ── SKELETON ──────────────────────────────────────── */
+.skeleton-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:36px 28px }
+.sk-card{ min-height:300px }
+.sk-img{ width:100%; height:150px; background:var(--bg3); margin-bottom:1rem; animation:skPulse 1.5s infinite }
+.sk-line{ height:10px; background:var(--bg3); margin-bottom:8px; animation:skPulse 1.5s infinite }
+@keyframes skPulse{ 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-/* ── TOOLBAR ─────────────────────────────────────── */
-.toolbar {
-  display:flex; justify-content:space-between; align-items:center;
-  margin-bottom:1.2rem; padding-bottom:0.9rem; border-bottom:1px solid var(--border);
-  flex-wrap:wrap; gap:10px;
-}
-.tb-left { display:flex; align-items:center; gap:10px; flex-wrap:wrap }
-.tb-count { font-family:'IBM Plex Mono',monospace; font-size:0.50rem; letter-spacing:2px; color:var(--txt4) }
-.tb-sorts { display:flex; gap:2px }
-.s-btn {
-  padding:5px 11px; background:transparent; border:1px solid var(--border);
-  cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:0.47rem;
-  letter-spacing:1.5px; color:var(--txt3); transition:all 0.18s;
-}
-.s-btn:hover { border-color:var(--accent); color:var(--accent) }
-.s-btn.active { background:var(--txt); color:var(--bg); border-color:var(--txt) }
+/* ── PRODUCT GRID / CARD ───────────────────────────── */
+.products-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:2px 2px; background:var(--line2) }
+.empty-state{ grid-column:1/-1; padding:6rem 2rem; text-align:center }
+.empty-icon{ font-size:2rem; display:block; margin-bottom:1.2rem; opacity:0.4 }
+.empty-title{ font-family:'Fraunces',serif; font-size:1.2rem; color:var(--txt3); margin-bottom:5px }
+.empty-sub{ font-size:0.86rem; color:var(--txt4) }
 
-/* ── SKELETON ────────────────────────────────────── */
-.skeleton-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:2px; background:var(--border2); border:1px solid var(--border) }
-.sk-card { background:var(--bg2); padding:1.5rem; min-height:280px }
-.sk-img { width:64px; height:64px; background:var(--bg4); margin:0 auto 1.2rem; animation:skPulse 1.5s infinite }
-.sk-line { height:9px; background:var(--bg4); margin-bottom:7px; animation:skPulse 1.5s infinite }
-@keyframes skPulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+.pc{ background:var(--bg); display:flex; flex-direction:column; transition:background .25s; position:relative }
+.pc:hover{ background:var(--bg2) }
+.pc.sold-out{ opacity:0.5 }
 
-/* ── PRODUCT GRID ────────────────────────────────── */
-.products-grid {
-  display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
-  gap:2px; background:var(--border2); border:1px solid var(--border);
-}
-.empty-state {
-  grid-column:1/-1; padding:5rem 2rem; text-align:center;
-}
-.empty-icon { font-size:2.5rem; display:block; margin-bottom:1rem; opacity:0.3 }
-.empty-title { font-family:'Syne',sans-serif; font-size:1rem; font-weight:700; color:var(--txt4); margin-bottom:4px }
-.empty-sub { font-family:'IBM Plex Mono',monospace; font-size:0.46rem; letter-spacing:2px; color:var(--txt4); opacity:0.6 }
+.pc-img-area{ padding:2.2rem 1.6rem 1.6rem; display:flex; align-items:center; justify-content:center; min-height:150px; position:relative }
+.pc-img{ width:76px; height:76px; object-fit:contain; image-rendering:pixelated; filter:drop-shadow(0 10px 22px rgba(0,0,0,0.5)); transition:transform .35s }
+.pc:hover .pc-img{ transform:scale(1.07) translateY(-2px) }
+.pc-img-ph{ width:76px; height:76px; display:flex; align-items:center; justify-content:center; font-size:2.1rem; opacity:0.35 }
 
-/* ── PRODUCT CARD ────────────────────────────────── */
-.pc {
-  background:var(--bg2); display:flex; flex-direction:column;
-  transition:background 0.22s, box-shadow 0.22s, transform 0.22s;
-  position:relative; overflow:hidden;
-  border-top:2px solid transparent;
-}
-.pc:hover {
-  background:var(--bg3);
-  box-shadow:0 6px 28px rgba(0,0,0,0.35);
-  transform:translateY(-1px);
-  border-top-color:var(--accent);
-  z-index:2;
-}
-.pc.sold-out { opacity:0.55 }
-.pc.sold-out:hover { transform:none; box-shadow:none; border-top-color:transparent }
+.pc-status-badge{ position:absolute; top:14px; left:0; font-size:0.62rem; letter-spacing:1.2px; text-transform:uppercase; padding:3px 9px; font-weight:600 }
+.badge-stock{ color:var(--green) }
+.badge-low{ color:var(--gold) }
+.badge-out{ color:var(--red) }
+.pc-cat{ position:absolute; top:14px; right:0; font-size:0.62rem; letter-spacing:1.2px; text-transform:uppercase; color:var(--txt4) }
 
-/* Card: image area */
-.pc-img-area {
-  padding:2rem; display:flex; align-items:center; justify-content:center;
-  background:linear-gradient(135deg, var(--bg3) 0%, var(--bg4) 100%);
-  border-bottom:1px solid var(--border); min-height:130px; position:relative;
-}
-.pc-img {
-  width:68px; height:68px; object-fit:contain; image-rendering:pixelated;
-  filter:drop-shadow(0 6px 20px rgba(0,0,0,0.5));
-  transition:transform 0.3s;
-}
-.pc:hover .pc-img { transform:scale(1.06) }
-.pc-img-ph { width:68px; height:68px; display:flex; align-items:center; justify-content:center; font-size:2rem; opacity:0.4 }
+.pc-body{ padding:0 1.6rem 1.7rem; display:flex; flex-direction:column; flex:1 }
+.pc-name{ font-family:'Fraunces',serif; font-size:1.15rem; font-weight:600; letter-spacing:-0.2px; margin-bottom:8px; line-height:1.3 }
+.pc-best-badge{ font-size:0.6rem; letter-spacing:1px; text-transform:uppercase; padding:2px 7px; background:var(--gold-dim); color:var(--gold); margin-left:7px; vertical-align:middle }
 
-/* Badges on image */
-.pc-status-badge {
-  position:absolute; top:9px; left:9px;
-  font-family:'IBM Plex Mono',monospace; font-size:0.39rem; letter-spacing:1.5px;
-  padding:3px 8px; border:1px solid; font-weight:500;
-}
-.badge-stock  { border-color:rgba(74,222,128,0.35);  color:var(--green); background:var(--green-dim) }
-.badge-low    { border-color:rgba(251,191,36,0.35);  color:var(--gold);  background:var(--gold-dim) }
-.badge-out    { border-color:rgba(248,113,113,0.25); color:var(--red);   background:var(--red-dim) }
-.pc-cat {
-  position:absolute; top:9px; right:9px;
-  font-family:'IBM Plex Mono',monospace; font-size:0.38rem; letter-spacing:1.5px; color:var(--txt4);
-}
+.pc-price-wrap{ display:flex; align-items:baseline; gap:8px; margin-bottom:9px; flex-wrap:wrap }
+.pc-price{ font-family:'Fraunces',serif; font-size:1.3rem; font-weight:600; color:var(--gold); display:flex; align-items:baseline; gap:3px }
+.pc-price-sym{ font-size:0.95rem }
+.pc-price-old{ font-size:0.72rem; color:var(--txt4); text-decoration:line-through }
+.price-drop{ font-size:0.68rem; padding:2px 7px; background:rgba(220,38,38,0.08); color:var(--accent) }
+.price-up{ font-size:0.68rem; padding:2px 7px; background:rgba(240,132,126,0.08); color:var(--red) }
 
-/* Card: body */
-.pc-body { padding:1.1rem 1.2rem; display:flex; flex-direction:column; flex:1 }
-.pc-name {
-  font-family:'Syne',sans-serif; font-size:1.02rem; font-weight:700;
-  color:var(--txt); letter-spacing:-0.2px; margin-bottom:6px; line-height:1.25;
-}
-.pc-best-badge {
-  font-family:'IBM Plex Mono',monospace; font-size:0.37rem; letter-spacing:1.5px;
-  padding:1px 6px; background:var(--gold-dim); border:1px solid rgba(251,191,36,0.3);
-  color:var(--gold); margin-left:7px; vertical-align:middle;
-}
+.pc-desc{ font-size:0.86rem; color:var(--txt3); margin-bottom:1rem; flex:1 }
 
-/* Improved price display */
-.pc-price-wrap { display:flex; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap }
-.pc-price {
-  font-family:'Syne',sans-serif; font-size:1.15rem; font-weight:800;
-  color:var(--gold); letter-spacing:-0.3px; display:flex; align-items:baseline; gap:3px;
-}
-.pc-price-sym { font-size:0.85rem; color:var(--gold-dk) }
-.pc-price-old { font-family:'IBM Plex Mono',monospace; font-size:0.6rem; color:var(--txt4); text-decoration:line-through; letter-spacing:1px }
-.price-drop {
-  font-family:'IBM Plex Mono',monospace; font-size:0.41rem; letter-spacing:1.5px;
-  padding:2px 7px; background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.3);
-  color:var(--accent); animation:pricePulse 2s ease-in-out infinite;
-}
-.price-up {
-  font-family:'IBM Plex Mono',monospace; font-size:0.41rem; letter-spacing:1.5px;
-  padding:2px 7px; background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.3);
-  color:var(--red);
-}
-@keyframes pricePulse { 0%,100%{opacity:1} 50%{opacity:0.55} }
+.pc-meta-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem }
+.pc-stock-txt{ font-size:0.76rem; color:var(--txt3) }
+.pc-sold-num{ font-size:0.72rem; color:var(--accent); opacity:0.75 }
 
-.pc-desc { font-size:0.83rem; color:var(--txt3); font-weight:300; line-height:1.65; margin-bottom:0.75rem; flex:1 }
+.qty-row{ display:flex; align-items:center; gap:10px; margin-bottom:0.9rem }
+.qty-lbl{ font-size:0.68rem; letter-spacing:1.4px; text-transform:uppercase; color:var(--txt4) }
+.qty-ctrl{ display:flex; align-items:center; border:1px solid var(--line); margin-left:auto }
+.qty-b{ width:30px; height:30px; background:transparent; border:none; cursor:pointer; color:var(--txt2); font-size:0.95rem; transition:background .15s }
+.qty-b:hover:not(:disabled){ background:var(--bg4) }
+.qty-b:disabled{ opacity:0.3; cursor:not-allowed }
+.qty-n{ width:34px; height:30px; background:transparent; border:none; border-left:1px solid var(--line); border-right:1px solid var(--line); color:var(--txt); font-family:'Inter',sans-serif; font-size:0.8rem; text-align:center; outline:none }
 
-/* Stock + sold row */
-.pc-meta-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:0.8rem }
-.pc-stock-txt { font-family:'IBM Plex Mono',monospace; font-size:0.44rem; letter-spacing:1.5px; color:var(--txt3) }
-.pc-sold-num  { font-family:'IBM Plex Mono',monospace; font-size:0.43rem; letter-spacing:1px; color:var(--accent); opacity:0.7 }
+.add-btn{
+  width:100%; padding:11px; background:transparent; color:var(--txt2); border:1px solid var(--line); cursor:pointer;
+  font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:600; letter-spacing:0.3px; transition:all .22s;
+}
+.add-btn:hover:not(:disabled){ background:var(--accent); color:#fff; border-color:var(--accent) }
+.add-btn:disabled{ cursor:not-allowed; color:var(--txt4) }
 
-/* Quantity control */
-.qty-row { display:flex; align-items:center; gap:8px; margin-bottom:0.65rem }
-.qty-lbl { font-family:'IBM Plex Mono',monospace; font-size:0.45rem; letter-spacing:1.5px; color:var(--txt4); flex-shrink:0 }
-.qty-ctrl { display:flex; align-items:center; border:1px solid var(--border) }
-.qty-b {
-  width:28px; height:28px; background:transparent; border:none; cursor:pointer;
-  color:var(--txt2); font-size:0.9rem; display:flex; align-items:center; justify-content:center;
-  transition:background 0.15s;
-}
-.qty-b:hover:not(:disabled) { background:var(--bg4) }
-.qty-b:disabled { opacity:0.3; cursor:not-allowed }
-.qty-n {
-  width:32px; height:28px; background:transparent; border:none;
-  border-left:1px solid var(--border); border-right:1px solid var(--border);
-  color:var(--txt); font-family:'IBM Plex Mono',monospace; font-size:0.72rem;
-  text-align:center; outline:none;
-}
+/* ── TICKER ────────────────────────────────────────── */
+.ticker{ border-bottom:1px solid var(--line); padding:0.85rem 0; overflow:hidden; background:var(--bg2) }
+.ticker-track{ display:flex; animation:ticker 34s linear infinite; white-space:nowrap }
+.ticker-item{ display:inline-flex; align-items:center; gap:20px; padding:0 30px; font-size:0.72rem; letter-spacing:1.4px; text-transform:uppercase; color:var(--txt4) }
+.tdot{ width:3px; height:3px; border-radius:50%; background:var(--accent) }
+@keyframes ticker{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-/* Add to cart button */
-.add-btn {
-  width:100%; padding:10px; background:var(--bg4);
-  color:var(--txt3); border:1px solid var(--border); cursor:pointer;
-  font-family:'IBM Plex Mono',monospace; font-size:0.50rem; letter-spacing:2px;
-  transition:all 0.22s; display:flex; align-items:center; justify-content:center; gap:7px;
+/* ── CART DRAWER ───────────────────────────────────── */
+.cart-overlay{ display:none; position:fixed; inset:0; background:rgba(10,9,8,0.6); z-index:600; backdrop-filter:blur(8px) }
+.cart-overlay.open{ display:block }
+.cart-drawer{
+  position:fixed; right:0; top:0; bottom:0; width:min(420px,100vw); background:var(--bg2); z-index:601;
+  display:flex; flex-direction:column; transform:translateX(100%); transition:transform .35s cubic-bezier(0.4,0,0.2,1);
+  border-left:1px solid var(--line);
 }
-.add-btn:hover:not(:disabled) {
-  background:var(--accent); color:#fff; border-color:var(--accent);
-  box-shadow:0 4px 16px rgba(220,38,38,0.25); letter-spacing:2.5px;
-}
-.add-btn:active:not(:disabled) { background:var(--accent-dk) }
-.add-btn:disabled { cursor:not-allowed; color:var(--txt4); background:var(--bg3); border-color:var(--border2) }
+.cart-drawer.open{ transform:translateX(0) }
+.drawer-hd{ padding:1.7rem 2rem; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center }
+.drawer-hd-left{ display:flex; align-items:baseline; gap:10px }
+.drawer-hd h3{ font-family:'Fraunces',serif; font-size:1.3rem; font-weight:600 }
+.drawer-item-count{ font-size:0.76rem; color:var(--txt4) }
+.drawer-close{ width:32px; height:32px; background:transparent; border:1px solid var(--line); cursor:pointer; color:var(--txt3); display:flex; align-items:center; justify-content:center; transition:all .2s }
+.drawer-close:hover{ border-color:var(--txt3); color:var(--txt) }
+.drawer-body{ flex:1; overflow-y:auto; padding:1.2rem 2rem }
+.drawer-body::-webkit-scrollbar{ width:3px }
+.drawer-body::-webkit-scrollbar-thumb{ background:var(--line) }
+.cart-empty{ display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:260px; text-align:center; gap:12px }
+.cart-empty-icon{ font-size:2.4rem; opacity:0.25 }
+.cart-empty-title{ font-family:'Fraunces',serif; font-size:1.05rem; color:var(--txt3) }
+.cart-empty-sub{ font-size:0.8rem; color:var(--txt4) }
+.cart-item{ display:flex; gap:14px; padding:1rem 0; border-bottom:1px solid var(--line2) }
+.cart-item:last-child{ border-bottom:none }
+.ci-thumb{ width:56px; height:56px; background:var(--bg3); display:flex; align-items:center; justify-content:center; flex-shrink:0 }
+.ci-thumb img{ width:38px; height:38px; object-fit:contain; image-rendering:pixelated }
+.ci-info{ flex:1; min-width:0 }
+.ci-name{ font-family:'Fraunces',serif; font-size:0.98rem; font-weight:600; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+.ci-price{ font-size:0.78rem; color:var(--gold) }
+.ci-qty-row{ display:flex; align-items:center; gap:8px; margin-top:8px }
+.ci-qb{ width:24px; height:24px; background:transparent; border:1px solid var(--line); cursor:pointer; color:var(--txt2); font-size:0.85rem; display:flex; align-items:center; justify-content:center; transition:background .15s }
+.ci-qb:hover{ background:var(--bg3) }
+.ci-qn{ font-size:0.82rem; min-width:20px; text-align:center }
+.ci-del{ background:transparent; border:none; cursor:pointer; color:var(--txt4); font-size:0.9rem; padding:4px; transition:color .2s; align-self:flex-start }
+.ci-del:hover{ color:var(--red) }
+.drawer-ft{ padding:1.5rem 2rem; border-top:1px solid var(--line) }
+.cart-total-row{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:1.1rem }
+.ct-label{ font-size:0.7rem; letter-spacing:1.6px; text-transform:uppercase; color:var(--txt4) }
+.ct-val{ font-family:'Fraunces',serif; font-size:1.6rem; font-weight:600; color:var(--gold) }
+.checkout-btn{ width:100%; padding:14px; background:var(--accent); color:#fff; border:none; cursor:pointer; font-size:0.88rem; font-weight:600; letter-spacing:0.3px; transition:all .2s }
+.checkout-btn:hover:not(:disabled){ background:var(--accent-dk) }
+.checkout-btn:disabled{ background:var(--bg4); color:var(--txt4); cursor:not-allowed }
 
-/* ── CART DRAWER ─────────────────────────────────── */
-.cart-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:600; backdrop-filter:blur(8px) }
-.cart-overlay.open { display:block }
-.cart-drawer {
-  position:fixed; right:0; top:0; bottom:0; width:min(400px,100vw);
-  background:var(--bg2); z-index:601; display:flex; flex-direction:column;
-  transform:translateX(100%); transition:transform 0.32s cubic-bezier(0.4,0,0.2,1);
-  border-left:1px solid var(--border);
-}
-.cart-drawer.open { transform:translateX(0) }
+/* ── ORDER SUMMARY IN MODAL ────────────────────────── */
+.order-summary{ background:var(--bg3); border:1px solid var(--line); padding:1.3rem 1.5rem; margin-bottom:1.6rem }
+.os-title{ font-size:0.68rem; letter-spacing:1.8px; text-transform:uppercase; color:var(--txt4); margin-bottom:0.8rem }
+.os-row{ display:flex; justify-content:space-between; padding:4px 0; font-size:0.88rem; color:var(--txt2) }
+.os-row span:last-child{ color:var(--gold) }
+.os-divider{ height:1px; background:var(--line); margin:9px 0 }
+.os-total-row{ display:flex; justify-content:space-between; align-items:baseline }
+.os-total-lbl{ font-size:0.7rem; letter-spacing:1.6px; text-transform:uppercase; color:var(--txt4) }
+.os-total-val{ font-family:'Fraunces',serif; font-size:1.5rem; font-weight:600; color:var(--gold) }
 
-.drawer-hd {
-  padding:1.2rem 1.5rem; border-bottom:1px solid var(--border);
-  display:flex; justify-content:space-between; align-items:center;
-  background:var(--bg3);
-}
-.drawer-hd-left { display:flex; align-items:center; gap:10px }
-.drawer-hd h3 { font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:800; color:var(--txt); letter-spacing:-0.3px }
-.drawer-item-count { font-family:'IBM Plex Mono',monospace; font-size:0.42rem; letter-spacing:1.5px; color:var(--txt4) }
-.drawer-close {
-  width:30px; height:30px; background:var(--bg4); border:1px solid var(--border);
-  cursor:pointer; color:var(--txt3); display:flex; align-items:center; justify-content:center;
-  transition:all 0.2s; font-size:0.9rem;
-}
-.drawer-close:hover { background:var(--surface); color:var(--txt) }
+/* ── SUCCESS MODAL ─────────────────────────────────── */
+.success-body{ padding:3.5rem 2rem; text-align:center }
+.success-icon{ font-size:2.6rem; display:block; margin-bottom:1.2rem }
+.success-body h3{ font-family:'Fraunces',serif; font-size:1.6rem; font-weight:600; margin-bottom:0.5rem }
+.success-body p{ font-size:0.92rem; color:var(--txt2); max-width:360px; margin:0 auto 1.6rem }
+.order-id-chip{ font-size:0.78rem; letter-spacing:1.4px; color:var(--accent); padding:9px 22px; border:1px solid var(--accent-line); background:var(--accent-dim); display:inline-block; margin-bottom:1.6rem }
 
-.drawer-body { flex:1; overflow-y:auto; padding:1rem 1.4rem }
-.drawer-body::-webkit-scrollbar { width:3px }
-.drawer-body::-webkit-scrollbar-track { background:transparent }
-.drawer-body::-webkit-scrollbar-thumb { background:var(--border) }
+/* ── BACK TO TOP ───────────────────────────────────── */
+.back-top{
+  position:fixed; bottom:1.8rem; left:1.8rem; z-index:800; width:40px; height:40px; background:var(--bg2);
+  border:1px solid var(--line); cursor:pointer; color:var(--txt3); font-size:0.95rem; display:flex;
+  align-items:center; justify-content:center; transition:all .2s; opacity:0; pointer-events:none;
+}
+.back-top.show{ opacity:1; pointer-events:auto }
+.back-top:hover{ background:var(--accent); color:#fff; border-color:var(--accent) }
 
-.cart-empty { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:250px; text-align:center; gap:12px }
-.cart-empty-icon { font-size:3rem; opacity:0.2 }
-.cart-empty-title { font-family:'Syne',sans-serif; font-size:1rem; font-weight:700; color:var(--txt4) }
-.cart-empty-sub { font-family:'IBM Plex Mono',monospace; font-size:0.43rem; letter-spacing:1.5px; color:var(--txt4); opacity:0.6 }
-
-.cart-item {
-  display:flex; gap:12px; padding:0.85rem 0;
-  border-bottom:1px solid var(--border2);
+/* ── RESPONSIVE ────────────────────────────────────── */
+@media(max-width:1000px){
+  .shop-wrap{ grid-template-columns:1fr }
+  .sidebar{ position:static; flex-direction:row; flex-wrap:wrap; gap:2rem 3rem }
 }
-.cart-item:last-child { border-bottom:none }
-.ci-thumb {
-  width:50px; height:50px; background:linear-gradient(135deg, var(--bg3), var(--bg4));
-  display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  border:1px solid var(--border);
+@media(max-width:700px){
+  .hero{ flex-direction:column; align-items:flex-start }
+  .hero-stats{ display:none }
+  .products-grid{ grid-template-columns:repeat(2,1fr) }
+  .skeleton-grid{ grid-template-columns:repeat(2,1fr) }
 }
-.ci-thumb img { width:36px; height:36px; object-fit:contain; image-rendering:pixelated }
-.ci-info { flex:1; min-width:0 }
-.ci-name { font-family:'Syne',sans-serif; font-size:0.9rem; font-weight:700; color:var(--txt); margin-bottom:2px; letter-spacing:-0.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
-.ci-price { font-family:'IBM Plex Mono',monospace; font-size:0.58rem; color:var(--gold) }
-.ci-qty-row { display:flex; align-items:center; gap:6px; margin-top:6px }
-.ci-qb {
-  width:22px; height:22px; background:var(--bg4); border:1px solid var(--border);
-  cursor:pointer; color:var(--txt2); font-size:0.8rem;
-  display:flex; align-items:center; justify-content:center; transition:background 0.15s;
-}
-.ci-qb:hover { background:var(--surface) }
-.ci-qn { font-family:'IBM Plex Mono',monospace; font-size:0.65rem; color:var(--txt); min-width:20px; text-align:center }
-.ci-del { background:transparent; border:none; cursor:pointer; color:var(--txt4); font-size:0.85rem; padding:4px; transition:color 0.2s; flex-shrink:0; align-self:flex-start; margin-top:2px }
-.ci-del:hover { color:var(--red) }
-
-.drawer-ft { padding:1.1rem 1.4rem; border-top:1px solid var(--border); background:var(--bg3) }
-.cart-total-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.9rem }
-.ct-label { font-family:'IBM Plex Mono',monospace; font-size:0.50rem; letter-spacing:2px; color:var(--txt4) }
-.ct-val { font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:800; color:var(--gold) }
-.checkout-btn {
-  width:100%; padding:12px; background:var(--accent); color:#fff; border:none; cursor:pointer;
-  font-family:'IBM Plex Mono',monospace; font-size:0.57rem; font-weight:500; letter-spacing:2px;
-  transition:all 0.2s;
-}
-.checkout-btn:hover:not(:disabled) { background:var(--accent-dk); box-shadow:0 4px 16px rgba(220,38,38,0.3) }
-.checkout-btn:disabled { background:var(--bg4); color:var(--txt4); cursor:not-allowed }
-
-/* ── MODALS ──────────────────────────────────────── */
-.m-overlay {
-  display:none; position:fixed; inset:0; background:rgba(0,0,0,0.68);
-  z-index:700; backdrop-filter:blur(10px);
-  align-items:center; justify-content:center; padding:1rem;
-}
-.m-overlay.open { display:flex }
-.modal {
-  background:var(--bg2); width:min(520px,100%); max-height:90vh; overflow-y:auto;
-  border:1px solid var(--border); animation:mIn 0.28s ease;
-}
-.modal::-webkit-scrollbar { width:3px }
-.modal::-webkit-scrollbar-thumb { background:var(--border) }
-@keyframes mIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
-
-.modal-hd {
-  padding:1.3rem 1.7rem; border-bottom:1px solid var(--border);
-  display:flex; justify-content:space-between; align-items:center;
-  background:var(--bg3); position:sticky; top:0; z-index:1;
-}
-.modal-hd h3 { font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:800; color:var(--txt); letter-spacing:-0.3px }
-.modal-hd-sub { font-family:'IBM Plex Mono',monospace; font-size:0.42rem; letter-spacing:1.5px; color:var(--txt4); margin-top:2px }
-.modal-close {
-  width:30px; height:30px; background:var(--bg4); border:1px solid var(--border);
-  cursor:pointer; color:var(--txt2); font-size:0.9rem;
-  display:flex; align-items:center; justify-content:center; transition:all 0.2s; flex-shrink:0;
-}
-.modal-close:hover { background:var(--surface); color:var(--txt) }
-
-.modal-body { padding:1.6rem }
-
-/* Order summary in modal */
-.order-summary {
-  background:var(--bg3); border:1px solid var(--border);
-  padding:1.1rem 1.3rem; margin-bottom:1.4rem;
-}
-.os-title { font-family:'IBM Plex Mono',monospace; font-size:0.46rem; letter-spacing:2.5px; color:var(--txt4); margin-bottom:0.7rem }
-.os-row {
-  display:flex; justify-content:space-between; padding:3px 0;
-  font-size:0.87rem; color:var(--txt2); font-weight:300;
-}
-.os-row span:last-child { font-family:'IBM Plex Mono',monospace; font-size:0.68rem; color:var(--gold) }
-.os-divider { height:1px; background:var(--border); margin:8px 0 }
-.os-total-row { display:flex; justify-content:space-between; align-items:center }
-.os-total-lbl { font-family:'IBM Plex Mono',monospace; font-size:0.50rem; letter-spacing:2px; color:var(--txt4) }
-.os-total-val { font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; color:var(--gold) }
-
-/* Form fields */
-.fg { margin-bottom:1rem }
-.flabel { display:block; font-family:'IBM Plex Mono',monospace; font-size:0.48rem; letter-spacing:2px; color:var(--txt3); margin-bottom:0.4rem }
-.flabel .req { color:var(--red) }
-.finput, .fselect, .ftextarea {
-  width:100%; padding:9px 12px; background:var(--bg3);
-  border:1px solid var(--border); color:var(--txt);
-  font-family:'Outfit',sans-serif; font-size:0.9rem; outline:none;
-  transition:border-color 0.2s, box-shadow 0.2s;
-}
-.finput::placeholder, .ftextarea::placeholder { color:var(--txt4) }
-.finput:focus, .fselect:focus, .ftextarea:focus {
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(220,38,38,0.08);
-}
-.frow { display:grid; grid-template-columns:1fr 1fr; gap:12px }
-.ftextarea { resize:vertical; min-height:72px }
-.fhint { font-size:0.75rem; color:var(--txt4); margin-top:3px; font-weight:300 }
-
-.modal-ft {
-  padding:1.1rem 1.7rem; border-top:1px solid var(--border);
-  display:flex; gap:8px; justify-content:flex-end; background:var(--bg3);
-  position:sticky; bottom:0; z-index:1;
-}
-.btn-cancel {
-  padding:9px 20px; background:transparent; border:1px solid var(--border);
-  cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:0.52rem;
-  letter-spacing:1.5px; color:var(--txt2); transition:all 0.2s;
-}
-.btn-cancel:hover { border-color:var(--txt2); color:var(--txt) }
-.btn-submit {
-  padding:9px 24px; background:var(--accent); color:#fff; border:none;
-  cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:0.52rem;
-  font-weight:500; letter-spacing:2px; transition:all 0.2s;
-  display:flex; align-items:center; gap:8px;
-}
-.btn-submit:hover:not(:disabled) { background:var(--accent-dk) }
-.btn-submit:disabled { background:var(--bg4); color:var(--txt4); cursor:not-allowed }
-
-.spinner { width:13px; height:13px; border:2px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite; display:none }
-.spinner.show { display:block }
-@keyframes spin { to{transform:rotate(360deg)} }
-
-/* Success modal */
-.success-body { padding:3rem 2rem; text-align:center }
-.success-icon { font-size:3rem; display:block; margin-bottom:1rem }
-.success-body h3 { font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:800; color:var(--txt); margin-bottom:0.4rem; letter-spacing:-0.3px }
-.success-body p { font-size:0.9rem; color:var(--txt2); line-height:1.8; max-width:340px; margin:0 auto 1.4rem; font-weight:300 }
-.order-id-chip {
-  font-family:'IBM Plex Mono',monospace; font-size:0.6rem; letter-spacing:2px;
-  color:var(--accent); padding:8px 20px; border:1px solid rgba(220,38,38,0.3);
-  background:var(--accent-dim); display:inline-block; margin-bottom:1.4rem;
-}
-.success-done-btn {
-  max-width:200px; margin:0 auto; display:block; padding:11px;
-  background:var(--accent); color:#fff; border:none; cursor:pointer;
-  font-family:'IBM Plex Mono',monospace; font-size:0.55rem; letter-spacing:2px;
-  transition:background 0.2s; width:100%;
-}
-.success-done-btn:hover { background:var(--accent-dk) }
-
-/* ── TOASTS ──────────────────────────────────────── */
-.toast-wrap { position:fixed; bottom:1.5rem; right:1.5rem; z-index:800; display:flex; flex-direction:column; gap:6px; pointer-events:none }
-.toast {
-  padding:10px 16px; background:var(--bg3); color:var(--txt);
-  font-family:'IBM Plex Mono',monospace; font-size:0.53rem; letter-spacing:1px;
-  border:1px solid var(--border); display:flex; align-items:center; gap:8px;
-  animation:tIn 0.25s ease; max-width:290px; pointer-events:auto;
-  box-shadow:0 4px 16px rgba(0,0,0,0.3);
-}
-.toast.ok  { border-left:3px solid var(--accent) }
-.toast.err { border-left:3px solid var(--red) }
-.toast.info{ border-left:3px solid var(--gold) }
-@keyframes tIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
-
-/* ── BACK TO TOP ─────────────────────────────────── */
-.back-top {
-  position:fixed; bottom:1.5rem; left:1.5rem; z-index:800;
-  width:36px; height:36px; background:var(--bg3); border:1px solid var(--border);
-  cursor:pointer; color:var(--txt3); font-size:0.9rem;
-  display:flex; align-items:center; justify-content:center;
-  transition:all 0.2s; opacity:0; pointer-events:none;
-  box-shadow:0 4px 12px rgba(0,0,0,0.3);
-}
-.back-top.show { opacity:1; pointer-events:auto }
-.back-top:hover { background:var(--accent); color:#fff; border-color:var(--accent) }
-
-/* ── FOOTER ──────────────────────────────────────── */
-footer { background:var(--net-bg); border-top:1px solid var(--border); padding:3rem 4%; margin-top:4rem }
-.footer-inner { max-width:1340px; margin:0 auto }
-.footer-top {
-  display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;
-  padding-bottom:2rem; border-bottom:1px solid var(--border2);
-}
-.footer-brand { font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:800; color:var(--txt); letter-spacing:-0.3px; margin-bottom:3px }
-.footer-brand-sub { font-family:'IBM Plex Mono',monospace; font-size:0.42rem; letter-spacing:2px; color:var(--txt4); margin-bottom:0.8rem }
-.footer-brand-desc { font-size:0.83rem; color:var(--txt4); font-weight:300; max-width:240px; line-height:1.7 }
-.footer-col-title { font-family:'IBM Plex Mono',monospace; font-size:0.44rem; letter-spacing:2.5px; color:var(--txt4); margin-bottom:0.7rem }
-.footer-col-links { display:flex; flex-direction:column; gap:3px }
-.footer-col-links a {
-  font-family:'IBM Plex Mono',monospace; font-size:0.48rem; letter-spacing:1.5px;
-  color:var(--txt3); text-decoration:none; padding:3px 0;
-  transition:color 0.2s, padding-left 0.2s;
-}
-.footer-col-links a:hover { color:var(--txt); padding-left:4px }
-.footer-bottom {
-  display:flex; justify-content:space-between; align-items:center;
-  flex-wrap:wrap; gap:8px; padding-top:1.2rem;
-}
-.footer-copy { font-family:'IBM Plex Mono',monospace; font-size:0.42rem; letter-spacing:1.5px; color:var(--txt4) }
-.footer-bottom-links { display:flex; gap:3px }
-.footer-bottom-links a,
-.footer-bottom-links button {
-  font-family:'IBM Plex Mono',monospace; font-size:0.42rem; letter-spacing:1.5px;
-  color:var(--txt4); text-decoration:none; padding:3px 8px;
-  border:1px solid rgba(255,255,255,0.04); background:none; cursor:pointer;
-  transition:all 0.2s;
-}
-.footer-bottom-links a:hover,
-.footer-bottom-links button:hover { color:var(--txt3); border-color:var(--border2) }
-.clear-btn-footer:hover { color:var(--red) !important }
-
-/* ── RESPONSIVE ──────────────────────────────────── */
-@media(max-width:1000px) {
-  .shop-wrap { grid-template-columns:1fr }
-  .sidebar { position:static }
-  /* mobile sidebar: horizontal scroll filters */
-  .sidebar { flex-direction:row; flex-wrap:nowrap; overflow-x:auto; gap:6px; padding-bottom:4px }
-  .sidebar::-webkit-scrollbar { display:none }
-  .sb-box { flex-shrink:0; min-width:170px }
-  .network-bar { display:none }
-  nav { top:0 }
-  .footer-top { grid-template-columns:1fr 1fr; gap:24px }
-}
-@media(max-width:700px) {
-  .hero { flex-direction:column; align-items:flex-start }
-  .hero-stats { display:none }
-  .nav-links { display:none }
-  .nav-back { display:none }
-  .frow { grid-template-columns:1fr }
-  .footer-top { grid-template-columns:1fr }
-  .products-grid { grid-template-columns:repeat(2,1fr) }
-  .skeleton-grid { grid-template-columns:repeat(2,1fr) }
-}
-@media(max-width:400px) {
-  .products-grid { grid-template-columns:1fr }
+@media(max-width:420px){
+  .products-grid, .skeleton-grid{ grid-template-columns:1fr }
 }
 </style>
 </head>
 <body>
 
-<!-- ── NETWORK BAR ────────────────────────────────── -->
-<div class="network-bar">
-  <span class="nb-label">THE LOL NETWORK</span>
-  <div class="nb-sep"></div>
-  <div class="nb-links">
-    <a href="/paizcorp/">PAIZ® CORP</a>
-    <a href="https://thelegendoflegiona.github.io/main/">THE LOL</a>
-    <a href="#" class="nb-current">PAIZ SHOP</a>
-    <a href="/paizcorp/paizchicken/">PAIZ CHICKEN</a>
-    <a href="/paizcorp/paizproductions/">PAIZPRODUCTIONS</a>
-    <a href="/paizcorp/paizproductions/thelolmovie">THE LOL MOVIE</a>
-    <a href="https://thelegendoflegiona.github.io/gov/">GOVERNMENT</a>
-    <a href="https://thelegendoflegiona.github.io/isc/">ISC</a>
-    <a href="https://thelegendoflegiona.github.io/tlrailways/">TL RAILWAYS</a>
+<!-- ── TOP STRIP ─────────────────────────────────── -->
+<div class="top-strip">
+  <div class="ts-links">
+    <a href="/paizcorp/">Paiz® Corp</a>
+    <a href="https://thelegendoflegiona.github.io/main/">The LoL</a>
+    <a href="https://thelegendoflegiona.github.io/gov/finance/" target="_blank">Currency</a>
+    <a href="https://discord.gg/wX5XaWgdXx" target="_blank">Discord</a>
   </div>
-  <div class="nb-right">
-    <div class="nb-status"><span class="nb-dot"></span>ALL SYSTEMS LIVE</div>
-  </div>
+  <div class="ts-status"><span class="ts-dot"></span>All systems live</div>
 </div>
 
 <!-- ── NAV ───────────────────────────────────────── -->
 <nav>
-  <a href="#" class="nav-logo">
+  <a href="/paizcorp/paizshop/" class="nav-logo">
     <img class="nav-logo-img" src="/paizcorp/assets/logos/ps-logo-v3.svg" alt="PS"
          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
     <div class="nav-logo-sq" style="display:none">PS</div>
     <div>
-      <div class="nav-wordmark">Paiz Shop</div>
-      <div class="nav-parent">PAIZ® CORP SUBSIDIARY</div>
+      <div class="nav-word">Paiz Shop</div>
+      <div class="nav-sub">Paiz® Corp Subsidiary</div>
     </div>
   </a>
-  <div class="nav-sep"></div>
   <div class="nav-links">
     <a href="/paizcorp/paizshop/order-history/">Order History</a>
     <a href="/paizcorp/paizshop/how-to-use/">How to Use</a>
-    <a href="https://thelegendoflegiona.github.io/gov/finance/" target="_blank">Currency</a>
-    <a href="https://discord.gg/wX5XaWgdXx" target="_blank">Discord</a>
-    <a href="https://sociabuzz.com/lyvwiz/donate" target="_blank">Tip Box</a>
   </div>
   <div class="nav-right">
     <a href="/paizcorp/" class="nav-back">← Paiz® Corp</a>
     <button class="cart-btn" onclick="openCart()">
-      🛒 Cart <span class="cart-badge" id="cart-count">0</span>
+      Cart <span class="cart-badge" id="cart-count">0</span>
     </button>
   </div>
 </nav>
@@ -735,65 +280,58 @@ footer { background:var(--net-bg); border-top:1px solid var(--border); padding:3
 <!-- ── HERO ──────────────────────────────────────── -->
 <div class="hero">
   <div class="hero-left">
-    <div class="hero-tag">OFFICIAL PAIZ® CORP RETAIL · SKYXION: ALTAER</div>
-    <h1>Paiz <span>Shop.</span></h1>
-    <div class="hero-sub">Buy Minecraft items with Diamonds. Delivery &amp; pickup within Skyxion: Altaër. Orders via Discord.</div>
-    <a href="/paizcorp/" class="hero-corp-pill">
-      <span>PART OF</span>
-      <strong>PAIZ® CORP CONGLOMERATE →</strong>
-    </a>
+    <div class="eyebrow">Official Retail · Skyxion: Altaër</div>
+    <h1>Paiz <em>Shop.</em></h1>
+    <div class="hero-sub">Buy Minecraft items with Diamonds. Delivery &amp; pickup within Skyxion: Altaër, orders arranged over Discord.</div>
+    <a href="/paizcorp/" class="hero-corp-pill">Part of <strong>Paiz® Corp →</strong></a>
   </div>
   <div class="hero-stats">
-    <div class="hero-stat"><span class="hs-val" id="stat-listed">—</span><span class="hs-key">ITEMS LISTED</span></div>
-    <div class="hero-stat"><span class="hs-val" id="stat-instock">—</span><span class="hs-key">IN STOCK</span></div>
-    <div class="hero-stat"><span class="hs-val">◆</span><span class="hs-key">DIAMOND PRICES</span></div>
+    <div class="hero-stat"><span class="hs-val" id="stat-listed">—</span><span class="hs-key">Items Listed</span></div>
+    <div class="hero-stat"><span class="hs-val" id="stat-instock">—</span><span class="hs-key">In Stock</span></div>
+    <div class="hero-stat"><span class="hs-val">◆</span><span class="hs-key">Diamond Priced</span></div>
   </div>
 </div>
 
-<!-- ── TICKER ─────────────────────────────────────── -->
+<!-- ── TICKER ────────────────────────────────────── -->
 <div class="ticker"><div class="ticker-track">
-  <span class="ticker-item">PAIZ SHOP <span class="tdot"></span></span>
-  <span class="ticker-item">BUY WITH DIAMONDS <span class="tdot"></span></span>
-  <span class="ticker-item">DELIVERY AVAILABLE <span class="tdot"></span></span>
-  <span class="ticker-item">ORDERS VIA DISCORD <span class="tdot"></span></span>
-  <span class="ticker-item">SKYXION: ALTAER <span class="tdot"></span></span>
-  <span class="ticker-item">THE LEGEND OF LEGIONA <span class="tdot"></span></span>
-  <span class="ticker-item">PAIZ® CORP SUBSIDIARY <span class="tdot"></span></span>
-  <span class="ticker-item">PAIZ SHOP <span class="tdot"></span></span>
-  <span class="ticker-item">BUY WITH DIAMONDS <span class="tdot"></span></span>
-  <span class="ticker-item">DELIVERY AVAILABLE <span class="tdot"></span></span>
-  <span class="ticker-item">ORDERS VIA DISCORD <span class="tdot"></span></span>
-  <span class="ticker-item">SKYXION: ALTAER <span class="tdot"></span></span>
-  <span class="ticker-item">THE LEGEND OF LEGIONA <span class="tdot"></span></span>
-  <span class="ticker-item">PAIZ® CORP SUBSIDIARY <span class="tdot"></span></span>
+  <span class="ticker-item">Paiz Shop <span class="tdot"></span></span>
+  <span class="ticker-item">Buy with Diamonds <span class="tdot"></span></span>
+  <span class="ticker-item">Delivery Available <span class="tdot"></span></span>
+  <span class="ticker-item">Orders via Discord <span class="tdot"></span></span>
+  <span class="ticker-item">Skyxion: Altaër <span class="tdot"></span></span>
+  <span class="ticker-item">The Legend of Legiona <span class="tdot"></span></span>
+  <span class="ticker-item">Paiz® Corp Subsidiary <span class="tdot"></span></span>
+  <span class="ticker-item">Paiz Shop <span class="tdot"></span></span>
+  <span class="ticker-item">Buy with Diamonds <span class="tdot"></span></span>
+  <span class="ticker-item">Delivery Available <span class="tdot"></span></span>
+  <span class="ticker-item">Orders via Discord <span class="tdot"></span></span>
+  <span class="ticker-item">Skyxion: Altaër <span class="tdot"></span></span>
+  <span class="ticker-item">The Legend of Legiona <span class="tdot"></span></span>
+  <span class="ticker-item">Paiz® Corp Subsidiary <span class="tdot"></span></span>
 </div></div>
 
-<!-- ── SHOP ───────────────────────────────────────── -->
+<!-- ── SHOP ──────────────────────────────────────── -->
 <div class="shop-wrap">
 
-  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="sb-box">
-      <div class="sb-label">SEARCH</div>
+    <div>
+      <div class="sb-label">Search</div>
       <div class="search-wrap">
-        <input type="text" class="search-inp" id="search-inp"
-               placeholder="Search items…" oninput="onSearchInput()">
+        <input type="text" class="search-inp" id="search-inp" placeholder="Search items…" oninput="onSearchInput()">
         <span class="search-ico" id="search-ico">⌕</span>
         <button class="search-clear" id="search-clear" onclick="clearSearch()" title="Clear search">✕</button>
       </div>
     </div>
 
-    <div class="sb-box">
-      <div class="sb-label">CATEGORY</div>
+    <div>
+      <div class="sb-label">Category</div>
       <div class="filter-list" id="cat-filters">
-        <button class="f-btn active" data-cat="All" onclick="setCat(this)">
-          All Items <span class="f-count" id="cat-count-all"></span>
-        </button>
+        <button class="f-btn active" data-cat="All" onclick="setCat(this)">All Items <span class="f-count" id="cat-count-all"></span></button>
       </div>
     </div>
 
-    <div class="sb-box">
-      <div class="sb-label">AVAILABILITY</div>
+    <div>
+      <div class="sb-label">Availability</div>
       <div class="filter-list">
         <button class="f-btn active" data-avail="all"      onclick="setAvail(this)">All</button>
         <button class="f-btn"        data-avail="in-stock" onclick="setAvail(this)">In Stock</button>
@@ -801,28 +339,23 @@ footer { background:var(--net-bg); border-top:1px solid var(--border); padding:3
       </div>
     </div>
 
-    <div class="sb-box">
-      <div class="sb-label">QUICK LINKS</div>
+    <div>
+      <div class="sb-label">Quick Links</div>
       <div class="sb-links">
-        <a href="/paizcorp/paizshop/order-history/">📋 Order History</a>
-        <a href="/paizcorp/paizshop/how-to-use/">❓ How to Use</a>
-        <a href="https://thelegendoflegiona.github.io/gov/finance/" target="_blank">💱 Currency</a>
-        <a href="https://discord.gg/wX5XaWgdXx" target="_blank">💬 Discord</a>
-        <a href="/paizcorp/paizshop/admin/">🔒 Admin Panel</a>
+        <a href="/paizcorp/paizshop/order-history/">Order History</a>
+        <a href="/paizcorp/paizshop/how-to-use/">How to Use</a>
+        <a href="https://thelegendoflegiona.github.io/gov/finance/" target="_blank">Currency Converter</a>
+        <a href="https://discord.gg/wX5XaWgdXx" target="_blank">Discord</a>
+        <a href="/paizcorp/paizshop/admin/">Admin Panel</a>
       </div>
     </div>
   </aside>
 
-  <!-- MAIN CONTENT -->
   <div class="products-area">
-
-    <!-- Active filter indicator -->
-    <div id="active-filter-badge" style="display:none; margin-bottom:10px"></div>
+    <div id="active-filter-badge" style="display:none; margin-bottom:12px"></div>
 
     <div class="toolbar">
-      <div class="tb-left">
-        <div class="tb-count" id="tb-count">Loading…</div>
-      </div>
+      <div class="tb-count" id="tb-count">Loading…</div>
       <div class="tb-sorts">
         <button class="s-btn active" data-sort="default"    onclick="setSort(this)">Default</button>
         <button class="s-btn"        data-sort="price-asc"  onclick="setSort(this)">◆↑ Price</button>
@@ -841,47 +374,33 @@ footer { background:var(--net-bg); border-top:1px solid var(--border); padding:3
   </div>
 </div>
 
-<!-- ── CART DRAWER ────────────────────────────────── -->
+<!-- ── CART DRAWER ───────────────────────────────── -->
 <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cart-drawer">
   <div class="drawer-hd">
-    <div class="drawer-hd-left">
-      <h3>Cart</h3>
-      <span class="drawer-item-count" id="drawer-item-count"></span>
-    </div>
+    <div class="drawer-hd-left"><h3>Cart</h3><span class="drawer-item-count" id="drawer-item-count"></span></div>
     <button class="drawer-close" onclick="closeCart()">✕</button>
   </div>
   <div class="drawer-body" id="cart-items"></div>
   <div class="drawer-ft">
-    <div class="cart-total-row">
-      <span class="ct-label">TOTAL</span>
-      <span class="ct-val" id="cart-total">◆ 0</span>
-    </div>
-    <button class="checkout-btn" id="checkout-btn" onclick="openCheckout()" disabled>
-      Checkout →
-    </button>
+    <div class="cart-total-row"><span class="ct-label">Total</span><span class="ct-val" id="cart-total">◆ 0</span></div>
+    <button class="checkout-btn" id="checkout-btn" onclick="openCheckout()" disabled>Checkout →</button>
   </div>
 </div>
 
-<!-- ── CHECKOUT MODAL ─────────────────────────────── -->
+<!-- ── CHECKOUT MODAL ────────────────────────────── -->
 <div class="m-overlay" id="checkout-modal">
   <div class="modal">
     <div class="modal-hd">
-      <div>
-        <h3>Place Order</h3>
-        <div class="modal-hd-sub">Fill in your details below</div>
-      </div>
+      <div><h3>Place Order</h3><div class="modal-hd-sub">Fill in your details below</div></div>
       <button class="modal-close" onclick="closeCheckout()">✕</button>
     </div>
     <div class="modal-body">
       <div class="order-summary">
-        <div class="os-title">ORDER SUMMARY</div>
+        <div class="os-title">Order Summary</div>
         <div id="os-rows"></div>
         <div class="os-divider"></div>
-        <div class="os-total-row">
-          <span class="os-total-lbl">TOTAL</span>
-          <span class="os-total-val" id="os-total">◆ 0</span>
-        </div>
+        <div class="os-total-row"><span class="os-total-lbl">Total</span><span class="os-total-val" id="os-total">◆ 0</span></div>
       </div>
       <div class="fg">
         <label class="flabel">Minecraft IGN <span class="req">*</span></label>
@@ -917,32 +436,28 @@ footer { background:var(--net-bg); border-top:1px solid var(--border); padding:3
       </div>
     </div>
     <div class="modal-ft">
-      <button class="btn-cancel" onclick="closeCheckout()">Cancel</button>
-      <button class="btn-submit" id="submit-btn" onclick="submitOrder()">
-        <span class="spinner" id="submit-spin"></span>
-        Place Order
+      <button class="btn btn-ghost" onclick="closeCheckout()">Cancel</button>
+      <button class="btn btn-primary" id="submit-btn" onclick="submitOrder()">
+        <span class="spinner" id="submit-spin"></span>Place Order
       </button>
     </div>
   </div>
 </div>
 
-<!-- ── SUCCESS MODAL ──────────────────────────────── -->
+<!-- ── SUCCESS MODAL ─────────────────────────────── -->
 <div class="m-overlay" id="success-modal">
   <div class="modal">
     <div class="success-body">
       <span class="success-icon">✅</span>
-      <h3>Order Placed!</h3>
+      <h3 class="serif">Order Placed!</h3>
       <div class="order-id-chip" id="success-id">ORDER #——</div>
       <p>Your order has been sent to our Discord. A staff member will contact you to arrange payment and delivery.</p>
-      <button class="success-done-btn" onclick="closeSuccess()">Done</button>
+      <button class="btn btn-primary" style="width:100%" onclick="closeSuccess()">Done</button>
     </div>
   </div>
 </div>
 
-<!-- ── TOAST WRAP ─────────────────────────────────── -->
 <div class="toast-wrap" id="toast-wrap"></div>
-
-<!-- ── BACK TO TOP ────────────────────────────────── -->
 <button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
 
 <!-- ── FOOTER ─────────────────────────────────────── -->
@@ -951,11 +466,11 @@ footer { background:var(--net-bg); border-top:1px solid var(--border); padding:3
     <div class="footer-top">
       <div>
         <div class="footer-brand">Paiz Shop</div>
-        <div class="footer-brand-sub">SUBSIDIARY-03 · RETAIL · PAIZ® CORP</div>
-        <div class="footer-brand-desc">Official Minecraft item store of The Legend of Legiona. Purchase items priced in Diamonds, delivered across Skyxion.</div>
+        <div class="footer-brand-sub">Subsidiary 03 · Retail · Paiz® Corp</div>
+        <div class="footer-brand-desc">Official Minecraft item store of The Legend of Legiona. Items priced in Diamonds, delivered across Skyxion.</div>
       </div>
       <div>
-        <div class="footer-col-title">PAIZ SHOP</div>
+        <div class="footer-col-title">Paiz Shop</div>
         <div class="footer-col-links">
           <a href="/paizcorp/paizshop/order-history/">Order History</a>
           <a href="/paizcorp/paizshop/how-to-use/">How to Use</a>
@@ -966,7 +481,7 @@ footer { background:var(--net-bg); border-top:1px solid var(--border); padding:3
         </div>
       </div>
       <div>
-        <div class="footer-col-title">PAIZ® CORP</div>
+        <div class="footer-col-title">Paiz® Corp</div>
         <div class="footer-col-links">
           <a href="/paizcorp/">Paiz® Corp</a>
           <a href="/paizcorp/paizchicken/">Paiz Chicken</a>
@@ -975,7 +490,7 @@ footer { background:var(--net-bg); border-top:1px solid var(--border); padding:3
         </div>
       </div>
       <div>
-        <div class="footer-col-title">THE LOL NETWORK</div>
+        <div class="footer-col-title">The LoL Network</div>
         <div class="footer-col-links">
           <a href="https://thelegendoflegiona.github.io/main/">The Legend of Legiona</a>
           <a href="https://thelegendoflegiona.github.io/gov/">Government</a>
@@ -985,7 +500,7 @@ footer { background:var(--net-bg); border-top:1px solid var(--border); padding:3
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2026 PAIZ SHOP · PAIZ® CORP SUBSIDIARY · THE LEGEND OF LEGIONA · FOUNDED BY FAIZ4224</div>
+      <div class="footer-copy">© 2026 Paiz Shop · Paiz® Corp Subsidiary · The Legend of Legiona · Founded by Faiz4224</div>
       <div class="footer-bottom-links">
         <a href="https://discord.gg/wX5XaWgdXx" target="_blank">Discord</a>
         <a href="/paizcorp/">Paiz® Corp</a>
@@ -995,12 +510,11 @@ footer { background:var(--net-bg); border-top:1px solid var(--border); padding:3
   </div>
 </footer>
 
-<!-- ── SCRIPTS ────────────────────────────────────── -->
 <script>
 /* ─── CONFIG ──────────────────────────────────────── */
 const CFG = {
   ORDER_WEBHOOK: 'https://discord.com/api/webhooks/1480130280546111498/DwlSvlQ2_zfgNe5f1ZGI-mYBwubXEH_CHjHfUpQlljEOb0WBK5uV_g9HmhNPUdrh1Wp1',
-  PRODUCTS_URL:  'https://raw.githubusercontent.com/faizzzlol/paizcorp/main/PaizShop/products.json',
+  PRODUCTS_URL:  'https://raw.githubusercontent.com/faizzzlol/paizcorp/main/paizshop/products.json',
   CACHE_TTL:     30000
 };
 
@@ -1023,7 +537,6 @@ async function loadProducts() {
     const r = await fetch(CFG.PRODUCTS_URL + '?t=' + Date.now());
     if (!r.ok) throw new Error();
     products = await r.json();
-    // Price history tracking
     const prevRaw = localStorage.getItem('ps_products');
     if (prevRaw) {
       const prev    = JSON.parse(prevRaw);
@@ -1053,8 +566,8 @@ async function loadProducts() {
 function getDefaults() {
   return [
     { id:'shulker_box',  name:'Shulker Box',    price:4, unit:'Diamond', stock:0, image:'img/shulker_box.png',  category:'Storage',     listed:true, description:'Store and carry items in bulk.' },
-    { id:'mending',      name:'Mending I',       price:3, unit:'Diamond', stock:0, image:'img/mending.png',      category:'Enchantment', listed:true, description:'Repair items using XP orbs.' },
-    { id:'unbreaking_iii',name:'Unbreaking III', price:2, unit:'Diamond', stock:0, image:'img/mending.png',      category:'Enchantment', listed:true, description:'Increases item durability greatly.' },
+    { id:'mending',      name:'Mending I',       price:3, unit:'Diamond', stock:0, image:'img/enchanted_book.gif', category:'Enchantment', listed:true, description:'Repair items using XP orbs.' },
+    { id:'unbreaking_iii',name:'Unbreaking III', price:2, unit:'Diamond', stock:0, image:'img/enchanted_book.gif', category:'Enchantment', listed:true, description:'Increases item durability greatly.' },
     { id:'nether_wart',  name:'Nether Wart',     price:3, unit:'Diamond', stock:0, image:'img/nether_wart.png', category:'Farming',     listed:true, description:'Essential for potion brewing.' },
     { id:'iron_ingot',   name:'Iron Ingot',       price:1, unit:'Diamond', stock:0, image:'img/iron_ingot.png',  category:'Materials',   listed:true, description:'Versatile crafting material.' }
   ];
@@ -1112,7 +625,6 @@ function setSort(btn) {
   render();
 }
 
-/* Active filter badge */
 function updateFilterBadge() {
   const el     = document.getElementById('active-filter-badge');
   const active = [];
@@ -1121,9 +633,7 @@ function updateFilterBadge() {
   const q = document.getElementById('search-inp').value.trim();
   if (q) active.push(`"${q}"`);
   if (!active.length) { el.style.display = 'none'; return; }
-  el.style.display = 'flex';
-  el.style.alignItems = 'center';
-  el.style.gap = '6px';
+  el.style.display = 'block';
   el.innerHTML = active.map(a =>
     `<span class="filter-badge">${a} <button onclick="resetFilters()">✕</button></span>`
   ).join('');
@@ -1176,7 +686,7 @@ function getPriceBadge(p) {
       <span class="${cls}">${arrow} ${lbl}</span>
     </div>`;
   }
-  return `<div class="pc-price-wrap"><div class="pc-price"><span class="pc-price-sym">◆</span>${p.price} <span style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;font-weight:400;color:rgba(251,191,36,0.6)">${sym}</span></div></div>`;
+  return `<div class="pc-price-wrap"><div class="pc-price"><span class="pc-price-sym">◆</span>${p.price} <span style="font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:400;color:rgba(232,184,75,0.6)">${sym}</span></div></div>`;
 }
 
 /* ─── RENDER ──────────────────────────────────────── */
@@ -1200,7 +710,7 @@ function render() {
   const grid = document.getElementById('products-grid');
   if (!list.length) {
     grid.innerHTML = `<div class="empty-state">
-      <span class="empty-icon">🔍</span>
+      <span class="empty-icon">⌕</span>
       <div class="empty-title">No items found</div>
       <div class="empty-sub">Try a different filter or search term</div>
     </div>`;
@@ -1214,7 +724,7 @@ function render() {
     const out    = p.stock <= 0;
     const low    = p.stock > 0 && p.stock <= 5;
     const bCls   = out ? 'badge-out' : low ? 'badge-low' : 'badge-stock';
-    const bTxt   = out ? 'SOLD OUT'  : low ? `${p.stock} LEFT` : 'IN STOCK';
+    const bTxt   = out ? 'Sold Out'  : low ? `${p.stock} Left` : 'In Stock';
 
     return `<div class="pc${out ? ' sold-out' : ''}">
       <div class="pc-img-area">
@@ -1224,21 +734,21 @@ function render() {
           ? `<img class="pc-img" src="${p.image}" alt="${p.name}" loading="lazy"
                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
           : ''}
-        <div class="pc-img-ph" style="${p.image ? 'display:none' : ''}">📦</div>
+        <div class="pc-img-ph" style="${p.image ? 'display:none' : ''}">◆</div>
       </div>
       <div class="pc-body">
         <div class="pc-name">
           ${p.name}
-          ${isBest ? '<span class="pc-best-badge">👑 Best Seller</span>' : ''}
+          ${isBest ? '<span class="pc-best-badge">Best Seller</span>' : ''}
         </div>
         ${getPriceBadge(p)}
         ${p.description ? `<div class="pc-desc">${p.description}</div>` : ''}
         <div class="pc-meta-row">
           <span class="pc-stock-txt">${out ? 'Out of stock' : `${p.stock} available`}</span>
-          ${(p.sold || 0) > 0 ? `<span class="pc-sold-num">📦 ${p.sold} sold</span>` : ''}
+          ${(p.sold || 0) > 0 ? `<span class="pc-sold-num">${p.sold} sold</span>` : ''}
         </div>
         <div class="qty-row">
-          <span class="qty-lbl">QTY</span>
+          <span class="qty-lbl">Qty</span>
           <div class="qty-ctrl">
             <button class="qty-b" onclick="chQty('q_${p.id}',-1)" ${out ? 'disabled' : ''}>−</button>
             <input type="number" class="qty-n" id="q_${p.id}" value="1" min="1"
@@ -1247,7 +757,7 @@ function render() {
           </div>
         </div>
         <button class="add-btn" onclick="addToCart('${p.id}')" ${out ? 'disabled' : ''}>
-          ${out ? '✕ Sold Out' : '＋ Add to Cart'}
+          ${out ? 'Sold Out' : 'Add to Cart'}
         </button>
       </div>
     </div>`;
@@ -1308,7 +818,7 @@ function updateCartUI() {
 function bumpBadge() {
   const badge = document.getElementById('cart-count');
   badge.classList.remove('bump');
-  void badge.offsetWidth; // reflow
+  void badge.offsetWidth;
   badge.classList.add('bump');
 }
 
@@ -1316,7 +826,7 @@ function renderCartItems() {
   const el = document.getElementById('cart-items');
   if (!cart.length) {
     el.innerHTML = `<div class="cart-empty">
-      <span class="cart-empty-icon">🛒</span>
+      <span class="cart-empty-icon">◆</span>
       <div class="cart-empty-title">Your cart is empty</div>
       <div class="cart-empty-sub">Add items from the store</div>
     </div>`;
@@ -1336,7 +846,7 @@ function renderCartItems() {
           <button class="ci-qb" onclick="chCartQty('${i.id}',1)">+</button>
         </div>
       </div>
-      <button class="ci-del" onclick="removeFromCart('${i.id}')" title="Remove">🗑</button>
+      <button class="ci-del" onclick="removeFromCart('${i.id}')" title="Remove">✕</button>
     </div>`).join('');
 }
 

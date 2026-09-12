@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order History — Paiz Shop</title>
+<link rel="icon" type="image/svg+xml" href="/paizcorp/assets/logos/ps-logo-v3.svg">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/paizcorp/paizshop/assets/style.css">
+<style>
+main{ max-width:880px; margin:0 auto; padding:3rem 5% 2rem }
+
+.stats-bar{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin:0 5%; background:var(--line2); max-width:880px; margin-left:auto; margin-right:auto }
+.stat-cell{ background:var(--bg2); padding:1.5rem 1.7rem; display:flex; flex-direction:column; gap:6px }
+.stat-val{ font-family:'Fraunces',serif; font-size:2rem; font-weight:600; color:var(--txt); line-height:1 }
+.stat-key{ font-size:0.68rem; letter-spacing:1.6px; text-transform:uppercase; color:var(--txt4) }
+
+.status-bar{ display:flex; gap:2px; max-width:880px; margin:2px auto 0; flex-wrap:wrap }
+.sb-cell{ background:var(--bg2); padding:0.9rem 1.2rem; display:flex; align-items:center; gap:10px; flex:1; min-width:130px }
+.sb-dot{ width:8px; height:8px; border-radius:50%; flex-shrink:0 }
+.sb-val{ font-family:'Fraunces',serif; font-size:1.15rem; font-weight:600 }
+.sb-lbl{ font-size:0.66rem; letter-spacing:1.2px; text-transform:uppercase; color:var(--txt4) }
+
+.refresh-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:1.6rem; flex-wrap:wrap; gap:10px }
+.last-checked{ font-size:0.8rem; color:var(--txt4) }
+.refresh-btn{
+  padding:8px 16px; background:transparent; border:1px solid var(--line); cursor:pointer;
+  font-size:0.78rem; color:var(--txt3); transition:all .2s; display:flex; align-items:center; gap:8px;
+}
+.refresh-btn:hover{ border-color:var(--accent); color:var(--accent) }
+.refresh-spin{ display:none; width:11px; height:11px; border:2px solid rgba(220,38,38,0.25); border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite }
+@keyframes spin{ to{transform:rotate(360deg)} }
+
+.toolbar{ display:flex; gap:10px; margin-bottom:1.6rem; flex-wrap:wrap; align-items:center }
+.search-wrap{ flex:1; position:relative; min-width:220px }
+.search-wrap input{ width:100%; padding:10px 14px 10px 4px; background:transparent; border:none; border-bottom:1px solid var(--line); color:var(--txt); font-family:'Inter',sans-serif; font-size:0.92rem; outline:none; transition:border-color .2s }
+.search-wrap input:focus{ border-color:var(--accent) }
+.search-wrap input::placeholder{ color:var(--txt4) }
+.filter-group{ display:flex; gap:4px }
+.f-btn{ padding:8px 14px; background:transparent; border:1px solid var(--line); cursor:pointer; font-size:0.78rem; color:var(--txt3); transition:all .2s }
+.f-btn:hover{ border-color:var(--accent); color:var(--accent) }
+.f-btn.active{ background:var(--accent-dim); border-color:var(--accent-line); color:var(--accent) }
+
+/* ── ORDER CARDS ─────────────────────────────────────── */
+.order-list{ display:flex; flex-direction:column; gap:2px }
+.order-card{ background:var(--bg2); border-left:2px solid var(--line); position:relative }
+.oc-pending{ border-left-color:var(--txt4) }
+.oc-confirmed{ border-left-color:var(--gold) }
+.oc-delivered{ border-left-color:var(--accent) }
+.oc-cancelled{ border-left-color:var(--red) }
+
+.card-head{ padding:1.3rem 1.6rem; display:grid; grid-template-columns:1fr auto auto; gap:16px; align-items:center; cursor:pointer; user-select:none }
+.ch-id{ font-size:0.74rem; color:var(--txt4); margin-bottom:5px; display:flex; align-items:center; gap:10px }
+.ch-name{ font-family:'Fraunces',serif; font-size:1.15rem; font-weight:600 }
+.ch-meta{ font-size:0.78rem; color:var(--txt3); margin-top:2px }
+.ch-price{ text-align:right; flex-shrink:0 }
+.ch-price-val{ font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:var(--gold); display:block; line-height:1 }
+.ch-price-lbl{ font-size:0.64rem; letter-spacing:1.4px; text-transform:uppercase; color:var(--txt4) }
+.ch-chevron{ color:var(--txt4); transition:transform .25s; flex-shrink:0 }
+.order-card.expanded .ch-chevron{ transform:rotate(180deg) }
+
+.status-badge{ font-size:0.68rem; letter-spacing:0.6px; padding:3px 10px; display:inline-flex; align-items:center; gap:6px }
+.status-badge::before{ content:''; width:6px; height:6px; border-radius:50%; flex-shrink:0 }
+.sb-pending{ color:var(--txt3) } .sb-pending::before{ background:var(--txt4) }
+.sb-confirmed{ color:var(--gold); background:var(--gold-dim) } .sb-confirmed::before{ background:var(--gold) }
+.sb-delivered{ color:var(--accent); background:var(--accent-dim) } .sb-delivered::before{ background:var(--accent) }
+.sb-cancelled{ color:var(--red); background:var(--red-dim) } .sb-cancelled::before{ background:var(--red) }
+.sb-unknown{ color:var(--txt4) } .sb-unknown::before{ background:var(--txt4) }
+
+.status-tracker{ padding:1.2rem 1.6rem 0.3rem; border-top:1px solid var(--line2) }
+.tracker-label{ font-size:0.66rem; letter-spacing:1.6px; text-transform:uppercase; color:var(--txt4); margin-bottom:1rem }
+.tracker-steps{ display:flex; align-items:center }
+.t-step{ display:flex; flex-direction:column; align-items:center; flex:1; position:relative }
+.t-step-dot{ width:22px; height:22px; border-radius:50%; border:1px solid var(--line); background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:0.6rem; transition:all .3s; z-index:1; position:relative }
+.t-step-lbl{ font-size:0.64rem; letter-spacing:0.8px; color:var(--txt4); margin-top:6px; text-align:center }
+.t-line{ flex:1; height:1px; background:var(--line); margin-top:-14px; transition:background .3s }
+.t-step.done .t-step-dot{ background:var(--accent-dim); border-color:var(--accent); color:var(--accent) }
+.t-step.done .t-step-lbl{ color:var(--accent) }
+.t-step.active .t-step-dot{ background:var(--gold-dim); border-color:var(--gold); color:var(--gold) }
+.t-step.active .t-step-lbl{ color:var(--gold) }
+.t-step.cancelled .t-step-dot{ background:var(--red-dim); border-color:var(--red); color:var(--red) }
+.t-step.cancelled .t-step-lbl{ color:var(--red) }
+
+.card-body{ display:none; padding:1.3rem 1.6rem; border-top:1px solid var(--line2) }
+.order-card.expanded .card-body{ display:block }
+.detail-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1.2rem }
+.detail-cell{ background:var(--bg3); padding:0.9rem 1.1rem }
+.dc-key{ font-size:0.64rem; letter-spacing:1.4px; text-transform:uppercase; color:var(--txt4); margin-bottom:4px }
+.dc-val{ font-size:0.88rem; color:var(--txt2) }
+.items-section{ margin-bottom:1.2rem }
+.items-label{ font-size:0.66rem; letter-spacing:1.4px; text-transform:uppercase; color:var(--txt4); margin-bottom:0.7rem }
+.item-row{ display:flex; justify-content:space-between; align-items:center; padding:0.7rem 0.9rem; background:var(--bg3); margin-bottom:2px }
+.item-name{ font-size:0.9rem; color:var(--txt2) }
+.item-qty{ font-size:0.76rem; color:var(--txt4) }
+.item-price{ font-size:0.82rem; color:var(--gold) }
+.notes-box{ background:var(--bg3); padding:1rem 1.1rem; font-size:0.88rem; color:var(--txt3); border-left:2px solid var(--gold); margin-bottom:1.2rem }
+.card-footer{ display:flex; justify-content:space-between; align-items:center; padding-top:1rem; border-top:1px solid var(--line2) }
+.status-updated{ font-size:0.74rem; color:var(--txt4) }
+.del-btn{ padding:7px 14px; background:transparent; border:1px solid rgba(240,132,126,0.25); cursor:pointer; font-size:0.72rem; color:var(--red); opacity:0.75; transition:all .2s }
+.del-btn:hover{ background:var(--red-dim); opacity:1 }
+
+.empty-state{ text-align:center; padding:6rem 2rem; background:var(--bg2) }
+.empty-icon{ font-size:2.4rem; display:block; margin-bottom:1.2rem; opacity:0.4 }
+.empty-title{ font-family:'Fraunces',serif; font-size:1.5rem; font-weight:600; margin-bottom:6px }
+.empty-sub{ font-size:0.9rem; color:var(--txt3) }
+.empty-cta{ display:inline-flex; margin-top:1.6rem }
+
+@media(max-width:700px){
+  .detail-grid{ grid-template-columns:1fr }
+  .toolbar{ flex-direction:column; align-items:stretch }
+  .card-head{ grid-template-columns:1fr auto }
+}
+</style>
+</head>
+<body>
+
+<div class="top-strip">
+  <div class="ts-links">
+    <a href="/paizcorp/">Paiz® Corp</a>
+    <a href="https://thelegendoflegiona.github.io/main/">The LoL</a>
+    <a href="https://thelegendoflegiona.github.io/gov/finance/" target="_blank">Currency</a>
+    <a href="https://discord.gg/wX5XaWgdXx" target="_blank">Discord</a>
+  </div>
+  <div class="ts-status"><span class="ts-dot"></span>All systems live</div>
+</div>
+
+<nav>
+  <a href="/paizcorp/paizshop/" class="nav-logo">
+    <img class="nav-logo-img" src="/paizcorp/assets/logos/ps-logo-v3.svg" alt="PS"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="nav-logo-sq" style="display:none">PS</div>
+    <div><div class="nav-word">Paiz Shop</div><div class="nav-sub">Paiz® Corp Subsidiary</div></div>
+  </a>
+  <div class="nav-links">
+    <a href="/paizcorp/paizshop/">Shop</a>
+    <a href="/paizcorp/paizshop/order-history/" class="on">Order History</a>
+    <a href="/paizcorp/paizshop/how-to-use/">How to Use</a>
+  </div>
+  <div class="nav-right"><a href="/paizcorp/" class="nav-back">← Paiz® Corp</a></div>
+</nav>
+
+<div class="page-hd">
+  <div class="eyebrow">Paiz Shop · Skyxion Altaër</div>
+  <h1>Order <em>History.</em></h1>
+  <p>Your past orders and live delivery status, updated by the shop owner.</p>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-cell"><span class="stat-val" id="st-orders">0</span><span class="stat-key">Total Orders</span></div>
+  <div class="stat-cell"><span class="stat-val" id="st-diamonds">0</span><span class="stat-key">Diamonds Spent</span></div>
+  <div class="stat-cell"><span class="stat-val" id="st-items">0</span><span class="stat-key">Items Bought</span></div>
+</div>
+
+<div class="status-bar">
+  <div class="sb-cell"><div class="sb-dot" style="background:var(--txt4)"></div><div><span class="sb-val" id="sb-pending">0</span><br><span class="sb-lbl">Pending</span></div></div>
+  <div class="sb-cell"><div class="sb-dot" style="background:var(--gold)"></div><div><span class="sb-val" id="sb-confirmed" style="color:var(--gold)">0</span><br><span class="sb-lbl">Confirmed</span></div></div>
+  <div class="sb-cell"><div class="sb-dot" style="background:var(--accent)"></div><div><span class="sb-val" id="sb-delivered" style="color:var(--accent)">0</span><br><span class="sb-lbl">Delivered</span></div></div>
+  <div class="sb-cell"><div class="sb-dot" style="background:var(--red)"></div><div><span class="sb-val" id="sb-cancelled" style="color:var(--red)">0</span><br><span class="sb-lbl">Cancelled</span></div></div>
+</div>
+
+<main>
+  <div class="refresh-row">
+    <span class="last-checked" id="last-checked">Status: checking…</span>
+    <button class="refresh-btn" onclick="refreshStatus()" id="refresh-btn">
+      <span class="refresh-spin" id="refresh-spin"></span>Refresh Status
+    </button>
+  </div>
+
+  <div class="toolbar">
+    <div class="search-wrap">
+      <input type="text" id="search" placeholder="Search by IGN or Order ID…" oninput="renderOrders()">
+    </div>
+    <div class="filter-group">
+      <button class="f-btn active" data-filter="all"       onclick="setFilter(this)">All</button>
+      <button class="f-btn"        data-filter="pending"   onclick="setFilter(this)">Pending</button>
+      <button class="f-btn"        data-filter="confirmed" onclick="setFilter(this)">Confirmed</button>
+      <button class="f-btn"        data-filter="delivered" onclick="setFilter(this)">Delivered</button>
+      <button class="f-btn"        data-filter="cancelled" onclick="setFilter(this)">Cancelled</button>
+    </div>
+    <button class="btn btn-line" onclick="clearAll()">Clear All</button>
+  </div>
+
+  <div class="order-list" id="order-list"></div>
+</main>
+
+<footer>
+  <div class="footer-inner" style="max-width:880px">
+    <div class="footer-top" style="grid-template-columns:1fr 1fr 1fr">
+      <div>
+        <div class="footer-brand">Paiz Shop</div>
+        <div class="footer-brand-sub">Subsidiary 03 · Retail · Paiz® Corp</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Paiz Shop</div>
+        <div class="footer-col-links">
+          <a href="/paizcorp/paizshop/">Store</a>
+          <a href="/paizcorp/paizshop/how-to-use/">How to Use</a>
+          <a href="https://thelegendoflegiona.github.io/gov/finance/">Currency</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Paiz® Corp</div>
+        <div class="footer-col-links">
+          <a href="/paizcorp/">Paiz® Corp</a>
+          <a href="https://discord.gg/wX5XaWgdXx" target="_blank">Discord</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Paiz Shop · Paiz® Corp Subsidiary · The Legend of Legiona</div>
+      <div class="footer-bottom-links">
+        <a href="https://discord.gg/wX5XaWgdXx" target="_blank">Discord</a>
+        <a href="/paizcorp/paizshop/">← Shop</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script>
+const TXN_URL = 'https://raw.githubusercontent.com/faizzzlol/paizcorp/main/paizshop/transactions.json';
+let orders=[], txnMap={}, activeFilter='all';
+
+function loadOrders(){try{orders=JSON.parse(localStorage.getItem('ps_orders')||'[]');}catch{orders=[];}}
+
+async function refreshStatus(){
+  const spin=document.getElementById('refresh-spin');const btn=document.getElementById('refresh-btn');
+  spin.style.display='block';btn.disabled=true;
+  document.getElementById('last-checked').textContent='Fetching latest status…';
+  try{
+    const r=await fetch(TXN_URL+'?t='+Date.now());
+    if(r.ok){const txns=await r.json();txnMap={};txns.forEach(t=>{txnMap[t.id]=t;});document.getElementById('last-checked').textContent='Last checked: '+new Date().toLocaleTimeString('en-MY',{timeZone:'Asia/Kuala_Lumpur'});toast('Status updated!','ok');}
+    else{document.getElementById('last-checked').textContent='Status unavailable (GitHub error '+r.status+')';}
+  }catch(e){document.getElementById('last-checked').textContent='Status unavailable — check your connection';}
+  spin.style.display='none';btn.disabled=false;renderOrders();updateStats();
+}
+
+function getStatus(orderId){if(txnMap[orderId])return txnMap[orderId].status||'pending';return 'unknown';}
+const STATUS_LABELS={pending:'Pending',confirmed:'Confirmed',delivered:'Delivered',cancelled:'Cancelled',unknown:'Not Tracked'};
+
+function buildTracker(status){
+  if(status==='cancelled')return`<div class="status-tracker"><div class="tracker-label">Order Status</div><div class="tracker-steps"><div class="t-step done"><div class="t-step-dot">✓</div><div class="t-step-lbl">Placed</div></div><div class="t-line" style="background:var(--red)"></div><div class="t-step cancelled"><div class="t-step-dot">✕</div><div class="t-step-lbl">Cancelled</div></div></div></div>`;
+  if(status==='unknown')return'';
+  const steps=[{key:'placed',label:'Placed',done:true},{key:'confirmed',label:'Confirmed',done:status==='confirmed'||status==='delivered'},{key:'delivered',label:'Delivered',done:status==='delivered'}];
+  const activeIdx=status==='delivered'?-1:status==='confirmed'?1:0;
+  let html=`<div class="status-tracker"><div class="tracker-label">Order Status</div><div class="tracker-steps">`;
+  steps.forEach((s,i)=>{const cls=s.done?'done':(i===activeIdx+1?'active':'');const icon=s.done?'✓':(i===activeIdx+1?'●':'○');html+=`<div class="t-step ${cls}"><div class="t-step-dot">${icon}</div><div class="t-step-lbl">${s.label}</div></div>`;if(i<steps.length-1)html+=`<div class="t-line"></div>`;});
+  html+=`</div></div>`;return html;
+}
+
+function updateStats(){
+  const total=orders.length;const diamonds=orders.reduce((s,o)=>s+(o.total||0),0);const items=orders.reduce((s,o)=>s+(o.items||[]).reduce((a,it)=>a+(it.qty||1),0),0);
+  document.getElementById('st-orders').textContent=total;document.getElementById('st-diamonds').textContent=diamonds;document.getElementById('st-items').textContent=items;
+  let pen=0,conf=0,del=0,can=0;orders.forEach(o=>{const s=getStatus(o.id);if(s==='pending')pen++;if(s==='confirmed')conf++;if(s==='delivered')del++;if(s==='cancelled')can++;});
+  document.getElementById('sb-pending').textContent=pen;document.getElementById('sb-confirmed').textContent=conf;document.getElementById('sb-delivered').textContent=del;document.getElementById('sb-cancelled').textContent=can;
+}
+
+function setFilter(btn){document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');activeFilter=btn.dataset.filter;renderOrders();}
+
+function renderOrders(){
+  const q=(document.getElementById('search').value||'').toLowerCase();const el=document.getElementById('order-list');
+  let list=[...orders].sort((a,b)=>new Date(b.ts||0)-new Date(a.ts||0));
+  if(q)list=list.filter(o=>(o.ign||'').toLowerCase().includes(q)||(o.id||'').toLowerCase().includes(q));
+  if(activeFilter!=='all')list=list.filter(o=>getStatus(o.id)===activeFilter);
+  if(!list.length){el.innerHTML=`<div class="empty-state"><span class="empty-icon">${orders.length?'⌕':'◆'}</span><div class="empty-title">${orders.length?'No orders match':"You haven't ordered yet"}</div><div class="empty-sub">${orders.length?'Try a different search or filter.':'Head to the shop and place your first order!'}</div>${!orders.length?'<a href="/paizcorp/paizshop/" class="btn btn-primary empty-cta">Go to Shop →</a>':''}</div>`;return;}
+  el.innerHTML=list.map(o=>{
+    const status=getStatus(o.id);const badgeCls='sb-'+(status||'unknown');const badgeTxt=STATUS_LABELS[status]||STATUS_LABELS.unknown;const txn=txnMap[o.id];
+    const items=(o.items||[]);const itemsHtml=items.length?`<div class="items-section"><div class="items-label">Items</div>${items.map(it=>`<div class="item-row"><span class="item-name">${it.name}</span><span class="item-qty">×${it.qty}</span><span class="item-price">◆ ${(it.price||0)*(it.qty||1)}</span></div>`).join('')}</div>`:'';
+    const notesHtml=o.notes?`<div class="notes-box">${o.notes}</div>`:'';
+    const statusUpdated=txn?.statusUpdatedTs?`<span class="status-updated">Last updated: ${txn.statusUpdatedTs}</span>`:`<span class="status-updated">Awaiting shop owner to update</span>`;
+    return`<div class="order-card oc-${status}" id="card-${o.id}"><div class="card-head" onclick="toggleCard('${o.id}')"><div class="ch-left"><div class="ch-id">${o.id} <span class="status-badge ${badgeCls}">${badgeTxt}</span></div><div class="ch-name">${o.ign||'—'}</div><div class="ch-meta">${o.delivery||''} ${o.ts?'· '+o.ts:''}</div></div><div class="ch-price"><span class="ch-price-val">◆ ${o.total||0}</span><span class="ch-price-lbl">Total</span></div><span class="ch-chevron">▼</span></div>${buildTracker(status)}<div class="card-body"><div class="detail-grid"><div class="detail-cell"><div class="dc-key">Minecraft IGN</div><div class="dc-val">${o.ign||'—'}</div></div><div class="detail-cell"><div class="dc-key">Delivery Type</div><div class="dc-val">${o.delivery||'—'}</div></div><div class="detail-cell"><div class="dc-key">Server</div><div class="dc-val">${o.server||'—'}</div></div><div class="detail-cell"><div class="dc-key">Location</div><div class="dc-val">${o.location||'—'}</div></div></div>${itemsHtml}${notesHtml}<div class="card-footer">${statusUpdated}<button class="del-btn" onclick="deleteOrder('${o.id}')">Delete</button></div></div></div>`;
+  }).join('');
+}
+
+function toggleCard(id){document.getElementById('card-'+id)?.classList.toggle('expanded');}
+function deleteOrder(id){if(!confirm('Remove this order from your local history? This does NOT affect the shop or Discord.'))return;orders=orders.filter(o=>o.id!==id);localStorage.setItem('ps_orders',JSON.stringify(orders));renderOrders();updateStats();toast('Order removed from history','info');}
+function clearAll(){if(!orders.length){toast('No orders to clear','info');return;}if(!confirm('Clear all orders from your local history? This is irreversible.'))return;orders=[];localStorage.setItem('ps_orders','[]');renderOrders();updateStats();toast('History cleared','info');}
+function toast(msg,type='ok'){const wrap=document.getElementById('toast-wrap');const el=document.createElement('div');el.className=`toast ${type}`;el.textContent=msg;wrap.appendChild(el);setTimeout(()=>{el.style.opacity='0';el.style.transition='opacity 0.4s';setTimeout(()=>el.remove(),400);},3500);}
+
+loadOrders();updateStats();renderOrders();refreshStatus();
+</script>
+</body>
+</html>

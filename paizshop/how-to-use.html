@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Use — Paiz Shop</title>
+<link rel="icon" type="image/svg+xml" href="/paizcorp/assets/logos/ps-logo-v3.svg">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/paizcorp/paizshop/assets/style.css">
+<style>
+.quick-steps{ max-width:1000px; margin:0 auto; padding:3rem 5% 0; display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--line2) }
+.qs{ background:var(--bg); padding:1.8rem 1.6rem; position:relative }
+.qs::before{ content:attr(data-n); position:absolute; top:1.4rem; right:1.4rem; font-family:'Fraunces',serif; font-size:1.6rem; color:var(--line); font-weight:600 }
+.qs-icon{ font-size:1.5rem; display:block; margin-bottom:0.9rem }
+.qs-title{ font-family:'Fraunces',serif; font-weight:600; margin-bottom:4px }
+.qs-desc{ font-size:0.82rem; color:var(--txt4) }
+
+.content-wrap{ max-width:800px; margin:0 auto; padding:4rem 5% 2rem }
+.section{ margin-bottom:4rem }
+.section-number{ font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:0.6rem }
+.section-title{ font-family:'Fraunces',serif; font-size:1.7rem; font-weight:600; letter-spacing:-0.4px; margin-bottom:2rem; padding-bottom:1.2rem; border-bottom:1px solid var(--line) }
+.steps{ display:flex; flex-direction:column; gap:1.8rem }
+.step{ display:flex; gap:20px }
+.step-num{ font-family:'Fraunces',serif; font-size:1.1rem; color:var(--txt4); flex-shrink:0; width:28px }
+.step-title{ font-weight:600; margin-bottom:6px; font-size:1.02rem }
+.step-desc{ color:var(--txt3); font-size:0.94rem; line-height:1.8 }
+.step-desc a{ color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-line) }
+.step-desc strong{ color:var(--txt2) }
+.tip, .info-box{ margin-top:0.9rem; padding:0.9rem 1.1rem; background:var(--bg3); border-left:2px solid var(--gold); font-size:0.88rem; color:var(--txt2) }
+.info-box{ border-left-color:var(--accent) }
+.info-box code{ font-family:monospace; background:var(--bg4); padding:1px 6px; font-size:0.85em }
+
+.currency-table{ width:100%; border-collapse:collapse; margin-top:1rem }
+.currency-table th{ text-align:left; font-size:0.68rem; letter-spacing:1.4px; text-transform:uppercase; color:var(--txt4); padding:0 0 10px; border-bottom:1px solid var(--line) }
+.currency-table td{ padding:11px 0; border-bottom:1px solid var(--line2); font-size:0.92rem; color:var(--txt2) }
+.currency-table .val{ text-align:right; color:var(--gold); font-family:'Fraunces',serif; font-weight:600 }
+
+.discord-box{
+  max-width:800px; margin:0 auto 5rem; padding:0 5%; display:flex; gap:24px; align-items:center;
+}
+.dc-inner{ display:flex; gap:24px; align-items:center; width:100%; padding:2.4rem; border:1px solid var(--line); background:var(--bg2) }
+.dc-icon{ font-size:2rem; flex-shrink:0 }
+.dc-title{ font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; margin-bottom:6px }
+.dc-desc{ color:var(--txt3); font-size:0.9rem; margin-bottom:1rem }
+
+@media(max-width:700px){
+  .quick-steps{ grid-template-columns:repeat(2,1fr) }
+  .step{ flex-direction:column; gap:8px }
+  .step-num{ width:auto }
+}
+</style>
+</head>
+<body>
+
+<div class="top-strip">
+  <div class="ts-links">
+    <a href="/paizcorp/">Paiz® Corp</a>
+    <a href="https://thelegendoflegiona.github.io/main/">The LoL</a>
+    <a href="https://thelegendoflegiona.github.io/gov/finance/" target="_blank">Currency</a>
+    <a href="https://discord.gg/wX5XaWgdXx" target="_blank">Discord</a>
+  </div>
+  <div class="ts-status"><span class="ts-dot"></span>All systems live</div>
+</div>
+
+<nav>
+  <a href="/paizcorp/paizshop/" class="nav-logo">
+    <img class="nav-logo-img" src="/paizcorp/assets/logos/ps-logo-v3.svg" alt="PS"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="nav-logo-sq" style="display:none">PS</div>
+    <div><div class="nav-word">Paiz Shop</div><div class="nav-sub">Paiz® Corp Subsidiary</div></div>
+  </a>
+  <div class="nav-links">
+    <a href="/paizcorp/paizshop/">Shop</a>
+    <a href="/paizcorp/paizshop/order-history/">Order History</a>
+    <a href="/paizcorp/paizshop/how-to-use/" class="on">How to Use</a>
+  </div>
+  <div class="nav-right"><a href="/paizcorp/" class="nav-back">← Paiz® Corp</a></div>
+</nav>
+
+<div class="page-hd">
+  <div class="eyebrow">Paiz Shop · Guide</div>
+  <h1>How to <em>Use.</em></h1>
+  <p>Everything you need to know to browse, order, and receive your items on Skyxion: Altaër.</p>
+</div>
+
+<div class="quick-steps">
+  <div class="qs" data-n="1"><span class="qs-icon">◆</span><div class="qs-title">Browse Items</div><div class="qs-desc">Find what you need in the shop</div></div>
+  <div class="qs" data-n="2"><span class="qs-icon">◆</span><div class="qs-title">Add to Cart</div><div class="qs-desc">Pick your quantity and add to cart</div></div>
+  <div class="qs" data-n="3"><span class="qs-icon">◆</span><div class="qs-title">Checkout</div><div class="qs-desc">Fill in your IGN and details</div></div>
+  <div class="qs" data-n="4"><span class="qs-icon">◆</span><div class="qs-title">Receive Order</div><div class="qs-desc">Pick up or get it delivered</div></div>
+</div>
+
+<div class="content-wrap">
+
+  <div class="section">
+    <div class="section-number">Section 01</div>
+    <div class="section-title">Browsing &amp; Finding Items</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><div><div class="step-title">Visit the Shop</div>
+        <div class="step-desc">Head to the <a href="/paizcorp/paizshop/">Paiz Shop homepage</a>. All available items are displayed in a grid. Items marked <strong style="color:var(--green)">In Stock</strong> can be added to cart immediately.</div></div></div>
+      <div class="step"><div class="step-num">02</div><div><div class="step-title">Search &amp; Filter</div>
+        <div class="step-desc">Use the search field in the sidebar to find items by name. You can also filter by category (Materials, Enchantments, Farming, Storage, etc.) or sort by price.</div></div></div>
+      <div class="step"><div class="step-num">03</div><div><div class="step-title">Check Stock</div>
+        <div class="step-desc">Each product card shows the current stock count. Items marked <strong style="color:var(--red)">Sold Out</strong> cannot be added to cart — check back later or DM the shop owner on Discord.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-number">Section 02</div>
+    <div class="section-title">Adding to Cart &amp; Checkout</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">04</div><div><div class="step-title">Set Quantity &amp; Add to Cart</div>
+        <div class="step-desc">Use the − / + buttons to set how many you want, then click <strong>Add to Cart</strong>. The cart drawer slides open from the right, showing all your selected items.</div></div></div>
+      <div class="step"><div class="step-num">05</div><div><div class="step-title">Review Your Cart</div>
+        <div class="step-desc">Click the cart icon (top right) anytime to open the drawer. You can adjust quantities or remove items. Your total is shown in Diamonds (◆) at the bottom.
+        <div class="tip"><strong>Tip:</strong> you can add multiple different items to one order — no need to check out separately for each item.</div></div></div></div>
+      <div class="step"><div class="step-num">06</div><div><div class="step-title">Proceed to Checkout</div>
+        <div class="step-desc">Click <strong>Checkout</strong> at the bottom of the cart. A checkout window will appear asking for your details.</div></div></div>
+      <div class="step"><div class="step-num">07</div><div><div class="step-title">Fill in Your Details</div>
+        <div class="step-desc">You'll need to provide:<br>
+          • <strong>Minecraft IGN</strong> — your in-game username<br>
+          • <strong>Discord username</strong> — so we can contact you<br>
+          • <strong>Delivery preference</strong> — Pickup or Delivery<br>
+          • <strong>Location</strong> — your coordinates if choosing delivery (X Y Z format)
+        <div class="tip"><strong>Delivery:</strong> choose <em>Pickup</em> to collect from the shop, or <em>Delivery</em> to have items brought to your location in-game.</div></div></div></div>
+      <div class="step"><div class="step-num">08</div><div><div class="step-title">Place Your Order</div>
+        <div class="step-desc">Click <strong>Place Order</strong>. Your order is automatically sent to our Discord channel as a notification. You'll get a confirmation with your Order ID — save it!
+        <div class="info-box">Every order gets a unique ID like <code>ORD-IIVC4J</code>. You'll need this to track your order on the <a href="/paizcorp/paizshop/order-history/" style="color:var(--accent)">Order History</a> page.</div></div></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-number">Section 03</div>
+    <div class="section-title">Tracking Your Order</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">09</div><div><div class="step-title">Visit Order History</div>
+        <div class="step-desc">Go to the <a href="/paizcorp/paizshop/order-history/">Order History</a> page to see all orders you've placed on this device. Your orders are saved to your browser automatically.</div></div></div>
+      <div class="step"><div class="step-num">10</div><div><div class="step-title">Check Live Status</div>
+        <div class="step-desc">The order history page fetches the latest status directly from the shop. Status updates as the shop owner processes your order.
+        <div class="tip">
+          <strong>⏳ Pending</strong> — order received, waiting to be confirmed<br>
+          <strong style="color:var(--gold)">✅ Confirmed</strong> — shop owner confirmed, preparing your items<br>
+          <strong style="color:var(--accent)">📦 Delivered</strong> — items delivered or ready for pickup<br>
+          <strong style="color:var(--red)">❌ Cancelled</strong> — order was cancelled (check Discord for reason)
+        </div></div></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-number">Section 04</div>
+    <div class="section-title">Currency &amp; Pricing</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">11</div><div><div class="step-title">We Use Diamonds ◆</div>
+        <div class="step-desc">All prices in Paiz Shop are in <strong style="color:var(--gold)">Diamonds</strong>. Bring the exact amount when collecting or receiving your order.</div></div></div>
+      <div class="step"><div class="step-num">12</div><div><div class="step-title">Currency Converter</div>
+        <div class="step-desc">Need to convert between Minecraft currencies and The LoL Dollar (TL$)? Use our <a href="https://thelegendoflegiona.github.io/gov/finance/">Currency Converter</a> tool.
+        <table class="currency-table">
+          <thead><tr><th>Currency</th><th style="text-align:right">Value in TL$</th></tr></thead>
+          <tbody>
+            <tr><td>Gold Ingot</td><td class="val">5 TL$</td></tr>
+            <tr><td>Iron Ingot</td><td class="val">1 TL$</td></tr>
+            <tr><td>Emerald</td><td class="val">10 TL$</td></tr>
+            <tr><td>Diamond</td><td class="val">30 TL$</td></tr>
+            <tr><td>Netherite Ingot</td><td class="val">150 TL$</td></tr>
+          </tbody>
+        </table></div></div></div>
+    </div>
+  </div>
+
+  <div class="discord-box">
+    <div class="dc-inner">
+      <div class="dc-icon">💬</div>
+      <div>
+        <div class="dc-title">Need Help?</div>
+        <div class="dc-desc">If your order isn't showing up, you have a question about stock, or need to modify or cancel an order — reach out on Discord. The shop owner will get back to you there.</div>
+        <a href="https://discord.gg/wX5XaWgdXx" class="btn btn-primary" target="_blank">Join Discord Server →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Paiz Shop</div>
+        <div class="footer-brand-sub">Subsidiary 03 · Retail · Paiz® Corp</div>
+        <div class="footer-brand-desc">Official Minecraft item store of The Legend of Legiona.</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Paiz Shop</div>
+        <div class="footer-col-links">
+          <a href="/paizcorp/paizshop/">Store</a>
+          <a href="/paizcorp/paizshop/order-history/">Order History</a>
+          <a href="/paizcorp/paizshop/how-to-use/">How to Use</a>
+          <a href="https://thelegendoflegiona.github.io/gov/finance/">Currency</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Paiz® Corp</div>
+        <div class="footer-col-links">
+          <a href="/paizcorp/">Paiz® Corp</a>
+          <a href="/paizcorp/paizchicken/">Paiz Chicken</a>
+          <a href="/paizcorp/paizproductions/">PaizProductions</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">The LoL Network</div>
+        <div class="footer-col-links">
+          <a href="https://thelegendoflegiona.github.io/main/">The Legend of Legiona</a>
+          <a href="https://thelegendoflegiona.github.io/gov/">Government</a>
+          <a href="https://thelegendoflegiona.github.io/isc/">ISC Archive</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Paiz Shop · Paiz® Corp Subsidiary · The Legend of Legiona</div>
+      <div class="footer-bottom-links">
+        <a href="https://discord.gg/wX5XaWgdXx" target="_blank">Discord</a>
+        <a href="/paizcorp/paizshop/">← Shop</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
