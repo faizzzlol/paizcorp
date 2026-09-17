@@ -19,8 +19,8 @@
     "stock": 0,
     "image": "img/enchanted_book.gif",
     "category": "Enchantment",
-    "listed": false,
-    "description": "(1x). Repair items using XP orbs."
+    "listed": true,
+    "description": "Grants (1x) Mending I. Repairs items using XP orbs."
   },
   {
     "id": "unbreaking_iii",
