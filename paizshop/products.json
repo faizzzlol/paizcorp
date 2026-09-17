@@ -60,10 +60,10 @@
     "name": "Pereda Stres*",
     "price": 5,
     "unit": "Diamond",
-    "stock": 0,
+    "stock": 1,
     "category": "Foods",
     "image": "img/pufferfish.webp",
-    "description": "(64x Pereda Stres*). The LoL authentic. (Eat at your own risks!)",
+    "description": "Includes a full stack (64x) of genuine *Pereda Stres*. The authentic The LoL experience—eat at your own risk!",
     "listed": true
   }
 ]
